@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Exercise extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'slug',
+    ];
+
+    public function exerciseRoutine()
+    {
+        return $this->hasMany(ExerciseRoutine::class);
+    }
+
 }
