@@ -13,7 +13,7 @@ class CreateExerciseRoutineTable extends Migration
      */
     public function up()
     {
-        Schema::create('exercise_routine', function (Blueprint $table) {
+        Schema::create('exercise_routines', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('exercise_id');
@@ -22,9 +22,9 @@ class CreateExerciseRoutineTable extends Migration
             $table->unsignedBigInteger('routine_id');
             $table->foreign('routine_id')->references('id')->on('routines')->onDelete('cascade');
 
-            $table->integer('sort_id');
-            $table->integer('display_id');
-            $table->integer('default_reps');
+            $table->integer('sort_id')->default('0');
+            $table->integer('display_id')->default('0');
+            $table->integer('default_reps')->default('0');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -37,6 +37,6 @@ class CreateExerciseRoutineTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exercise_routine');
+        Schema::dropIfExists('exercise_routines');
     }
 }
