@@ -6,12 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-
-
-class UserAuthController extends Controller
+class RegisterController extends Controller
 {
     public function register(Request $request)
     {
@@ -48,29 +45,6 @@ class UserAuthController extends Controller
         //return response($response, 200);
 
         return response($response, 200);
-
-    }
-
-    public function login(Request $request)
-    {
-        $login = $request->validate([
-            'email' => 'required',
-            'password' => 'required'
-        ]);
-
-        //$user = User::find(1);
-
-        $user = User::where('email', $login['email'])->first();
-
-        if( !Auth::attempt( $login ) ) {
-
-            return response(['message' => 'Invalid Login Credentials']);
-
-        }
-
-        $user_login_token= $user->createToken('UserToken')->accessToken;
-
-        return response()->json(['user' => Auth::user(), 'token' => $user_login_token], 200);
 
     }
 }

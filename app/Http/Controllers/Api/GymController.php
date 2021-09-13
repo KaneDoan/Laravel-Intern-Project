@@ -16,7 +16,8 @@ class GymController extends Controller
      */
     public function index()
     {
-        return Gym::all();
+        $gym =  Gym::paginate(15);
+        dd($gym);
     }
 
     /**
