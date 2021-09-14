@@ -1,11 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Gym;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\GymResource;
+
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+use App\Http\Requests\Gym\StoreGymRequest;
+use App\Http\Requests\Gym\UpdateGymRequest;
+use App\Http\Requests\Gym\ManageGymRequest;
 
 class GymController extends Controller
 {
@@ -14,10 +24,22 @@ class GymController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ManageGymRequest $request)
     {
-        $gym =  Gym::paginate(15);
-        dd($gym);
+        return QueryBuilder::for(Gym::class)
+            ->allowedIncludes(['name', 'pin', 'no_of_displays'])
+            ->allowedSorts([
+                'id',
+                'name',
+                'pin',
+                'no_of_displays',
+                'created_at',
+            ])
+
+            ->paginate(request('per_page') ?? 15);
+
+        // $gyms =  Gym::paginate(15);
+        // return $gyms;
     }
 
     /**
@@ -26,16 +48,25 @@ class GymController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreGymRequest $request)
     {
-        $request->validate([
-            'name'           => 'required',
-            'slug'           => 'required',
-            'pin'            => 'required',
-            'no_of_displays' => 'required',
-        ]);
+        $data = $request->all();
 
-        return Gym::create($request->all());
+        // $validator = Validator::make($data, [
+        //     'name' => 'required|max:255',
+        //     'slug' => 'required',
+        //     'pin' => 'required',
+        //     'no_of_displays' => 'required'
+        // ]);
+
+        // if($validator->fails()){
+        //     return response(['error' => $validator->errors(), 'Validation Error']);
+        // }
+
+        $gym = Gym::create($data);
+
+        return response([ 'gym' => new GymResource($gym), 'message' => 'Gym created successfully'], 201);
+        //return $gym;
     }
 
     /**
@@ -44,9 +75,9 @@ class GymController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ManageGymRequest $request, Gym $gym)
     {
-        return Gym::find($id);
+        return response([ 'gym' => new GymResource($gym), 'message' => 'Gym retrieved successfully'], 200);
     }
 
     /**
@@ -56,11 +87,11 @@ class GymController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateGymRequest $request, Gym $gym)
     {
-        $gym = Gym::find($id);
         $gym->update($request->all());
-        return $gym;
+
+        return response([ 'gym' => new GymResource($gym), 'message' => 'Gym updated successfully'], 200);
     }
 
     /**
@@ -69,13 +100,15 @@ class GymController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ManageGymRequest $request, Gym $gym)
     {
-        return Gym::destroy($id);
+        $gym->delete();
+
+        return response([ 'message' => 'Gym has been deleted' ]);
     }
 
-    public function search($name)
-    {
-        return Gym::where('name', 'like', '%'.$name.'%')->get();
-    }
+    // public function search(Gym $gym)
+    // {
+    //     return Gym::where('name', 'like', '%'.$gym.'%')->get();
+    // }
 }

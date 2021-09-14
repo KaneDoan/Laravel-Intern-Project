@@ -17,19 +17,17 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        //$user = User::find(1);
-
         $user = User::where('email', $login['email'])->first();
 
         if( !Auth::attempt( $login ) ) {
 
-            return response(['message' => 'Invalid Login Credentials']);
+            return response ( [ 'message' => 'Invalid Login Credentials' ] );
 
         }
 
-        $user_login_token= $user->createToken('UserToken')->accessToken;
+        $accessToken = $user->createToken('authToken')->accessToken;
 
-        return response()->json(['user' => Auth::user(), 'token' => $user_login_token], 200);
+        return response ([ 'user' => Auth::user(), 'access_token' => $accessToken ], 200 );
 
     }
 }

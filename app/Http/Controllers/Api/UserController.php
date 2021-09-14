@@ -1,9 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Http\Resources\UserResource;
+
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\User\ManageUserRequest;
 
 class UserController extends Controller
 {
@@ -14,7 +27,19 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        if (!Auth::user()->is_admin) return Auth::user();
+
+        return QueryBuilder::for(User::class)
+            ->allowedIncludes(['full_name', 'email'])
+            ->allowedSorts([
+                'id',
+                'full_name',
+                'email',
+                'created_at',
+            ])
+
+            ->paginate(request('per_page') ?? 15);
+
     }
 
     /**
@@ -23,42 +48,60 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $data = $request->all();
+
+        // $validator = Validator::make($data, [
+        //     'full_name' => 'required|string|max:255',
+        //     'email' => 'required|string|unique:users,email',
+        //     'password' => 'required|string|confirmed'
+        // ]);
+
+        // if($validator->fails()){
+        //     return response([ 'error' => $validator->errors(), 'Validation Error' ]);
+        // }
+
+        $user = User::create($data);
+
+        return response([ 'user' => new UserResource($user), 'message' => 'User Created successfully'], 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ManageUserRequest $request, User $user)
     {
-        //
+        return response([ 'user' => new UserResource($user), 'message' => 'User retrieved successfully'], 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $user->update($request->all());
+
+        return response([ 'user' => new UserResource($user), 'message' => 'User updated successfully'], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ManageUserRequest $request, User $user)
     {
-        //
+        $user->delete();
+
+        return response(['message' => 'User has been deleted']);
     }
 }
