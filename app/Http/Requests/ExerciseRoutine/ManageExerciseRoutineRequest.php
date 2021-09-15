@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Gym;
+namespace App\Http\Requests\ExerciseRoutine;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateGymRequest extends FormRequest
+class ManageExerciseRoutineRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -25,9 +25,6 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('users', function ($table) {
-            $table->boolean('is_admin')->default(0)->change();
-        });
     }
 
     /**

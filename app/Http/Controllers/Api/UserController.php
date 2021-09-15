@@ -62,6 +62,14 @@ class UserController extends Controller
         //     return response([ 'error' => $validator->errors(), 'Validation Error' ]);
         // }
 
+        $data = array(
+
+            "full_name"=>$request->full_name,
+            "email"=>$request->email,
+            "password"=>bcrypt($request->password),
+
+        );
+
         $user = User::create($data);
 
         return response([ 'user' => new UserResource($user), 'message' => 'User Created successfully'], 201);

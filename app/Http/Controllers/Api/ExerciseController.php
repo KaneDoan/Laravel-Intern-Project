@@ -6,6 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Exercise;
 use Illuminate\Http\Request;
 
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
+
+use App\Http\Requests\Exercise\ManageExerciseRequest;
+use App\Http\Requests\Exercise\StoreExerciseRequest;
+use App\Http\Requests\Exercise\UpdateExerciseRequest;
+use App\Http\Resources\ExerciseResource;
+
 class ExerciseController extends Controller
 {
     /**
@@ -13,9 +22,17 @@ class ExerciseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ManageExerciseRequest $request)
     {
-        //
+        return QueryBuilder::for(Exercise::class)
+        ->allowedIncludes(['name', 'slug'])
+        ->allowedSorts([
+            'id',
+            'name',
+            'created_at',
+        ])
+
+        ->paginate(request('per_page') ?? 15);
     }
 
     /**
@@ -24,9 +41,13 @@ class ExerciseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreExerciseRequest $request)
     {
-        //
+        $data = $request->all();
+
+        $exercise = Exercise::create($data);
+
+        return response([ 'exercise' => new ExerciseResource($exercise), 'message' => 'Exercise created successfully'], 201);
     }
 
     /**
@@ -35,9 +56,9 @@ class ExerciseController extends Controller
      * @param  \App\Models\Exercise  $exercise
      * @return \Illuminate\Http\Response
      */
-    public function show(Exercise $exercise)
+    public function show(ManageExerciseRequest $request, Exercise $exercise)
     {
-        //
+        return response([ 'exercise' => new ExerciseResource($exercise), 'message' => 'Exercise retrieved successfully'], 200);
     }
 
     /**
@@ -47,9 +68,11 @@ class ExerciseController extends Controller
      * @param  \App\Models\Exercise  $exercise
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Exercise $exercise)
+    public function update(UpdateExerciseRequest $request, Exercise $exercise)
     {
-        //
+        $exercise->update($request->all());
+
+        return response([ 'exercise' => new ExerciseResource($exercise), 'message' => 'Exercise updated successfully'], 200);
     }
 
     /**
@@ -58,8 +81,10 @@ class ExerciseController extends Controller
      * @param  \App\Models\Exercise  $exercise
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Exercise $exercise)
+    public function destroy(ManageExerciseRequest $request, Exercise $exercise)
     {
-        //
+        $exercise->delete();
+
+        return response([ 'message' => 'Exercise has been deleted' ]);
     }
 }

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\GymUser;
 use Illuminate\Http\Request;
+
+use App\Http\Requests\GymUser\ManageGymUserRequest;
+use App\Http\Resources\GymUserResource;
 
 class GymUserController extends Controller
 {
@@ -12,20 +16,11 @@ class GymUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ManageGymUserRequest $request)
     {
-        //
-    }
+        $gymUser = GymUser::with(['user', 'gym'])->get();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return $gymUser;
     }
 
     /**
@@ -34,31 +29,11 @@ class GymUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ManageGymUserRequest $request, GymUser $gymUser)
     {
-        //
+        $gymUser->load(['user', 'gym']);
+
+        return response([ 'gymUser' => new GymUserResource($gymUser), 'message' => 'Gym User retrieved successfully'], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

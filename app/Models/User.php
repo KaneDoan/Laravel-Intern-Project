@@ -47,4 +47,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(GymUser::class);
     }
+
+    public function isAdmin()
+    {
+        if($this->is_Admin == 1){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

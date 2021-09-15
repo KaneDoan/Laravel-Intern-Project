@@ -6,6 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\ExerciseRoutine;
 use Illuminate\Http\Request;
 
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
+
+use App\Http\Requests\ExerciseRoutine\ManageExerciseRoutineRequest;
+use App\Http\Requests\ExerciseRoutine\StoreExerciseRoutineRequest;
+use App\Http\Requests\ExerciseRoutine\UpdateExerciseRoutineRequest;
+use App\Http\Resources\ExerciseRoutineResource;
+
 class ExerciseRoutineController extends Controller
 {
     /**
@@ -13,9 +22,24 @@ class ExerciseRoutineController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ManageExerciseRoutineRequest $request)
     {
-        //
+        $exerciseRoutine =  QueryBuilder::for(ExerciseRoutine::class)
+        ->allowedIncludes(['sort_id', 'display_id', 'default_reps'])
+        ->allowedSorts([
+            'id',
+            'sort_id',
+            'display_id',
+            'default_reps',
+            'created_at',
+        ])
+
+        ->paginate(request('per_page') ?? 15);
+
+        $exerciseRoutine = ExerciseRoutine::with(['exercise', 'routine'])->get();
+
+        return $exerciseRoutine;
+
     }
 
     /**
@@ -24,9 +48,18 @@ class ExerciseRoutineController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreExerciseRoutineRequest $request)
     {
-        //
+        $data = $request->all();
+
+        $exerciseRoutine = ExerciseRoutine::create($data);
+
+        return response(
+
+        [
+            'exercise_routine' => new ExerciseRoutineResource($exerciseRoutine),
+            'message' => 'Exercise routine created successfully'
+        ], 201);
     }
 
     /**
@@ -35,9 +68,16 @@ class ExerciseRoutineController extends Controller
      * @param  \App\Models\ExerciseRoutine  $exerciseRoutine
      * @return \Illuminate\Http\Response
      */
-    public function show(ExerciseRoutine $exerciseRoutine)
+    public function show(ManageExerciseRoutineRequest $request, ExerciseRoutine $exerciseRoutine)
     {
-        //
+        $exerciseRoutine = ExerciseRoutine::with(['exercise', 'routine'])->get();
+
+        return response(
+
+        [
+            'exercise_routine' => new ExerciseRoutineResource($exerciseRoutine),
+            'message' => 'Exercise routine retrieved successfully'
+        ], 200);
     }
 
     /**
@@ -47,9 +87,16 @@ class ExerciseRoutineController extends Controller
      * @param  \App\Models\ExerciseRoutine  $exerciseRoutine
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ExerciseRoutine $exerciseRoutine)
+    public function update(UpdateExerciseRoutineRequest $request, ExerciseRoutine $exerciseRoutine)
     {
-        //
+        $exerciseRoutine->update($request->all());
+
+        return response(
+
+        [
+            'exercise_routine' => new ExerciseRoutineResource($exerciseRoutine),
+            'message' => 'Exercise routine updated successfully'
+        ], 200);
     }
 
     /**
@@ -58,8 +105,10 @@ class ExerciseRoutineController extends Controller
      * @param  \App\Models\ExerciseRoutine  $exerciseRoutine
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ExerciseRoutine $exerciseRoutine)
+    public function destroy(ManageExerciseRoutineRequest $request, ExerciseRoutine $exerciseRoutine)
     {
-        //
+        $exerciseRoutine->delete();
+
+        return response([ 'message' => 'Exercise routine has been deleted' ]);
     }
 }
