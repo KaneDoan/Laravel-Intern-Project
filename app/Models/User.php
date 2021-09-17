@@ -48,6 +48,12 @@ class User extends Authenticatable
         return $this->hasMany(GymUser::class);
     }
 
+    public function gyms()
+    {
+        return $this->belongsToMany(Gym::class, 'gym_users')->whereNull('gym_users.deleted_at');
+    }
+
+
     public function isAdmin()
     {
         if($this->is_Admin == 1){

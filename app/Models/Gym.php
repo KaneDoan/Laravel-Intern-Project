@@ -31,4 +31,11 @@ class Gym extends Model
     {
         return $this->hasMany(GymUser::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'gym_users')->whereNull('gym_users.deleted_at');
+    }
+
+
 }

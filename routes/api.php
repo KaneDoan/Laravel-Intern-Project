@@ -6,9 +6,10 @@ use App\Http\Controllers\Api\ExerciseController;
 use App\Http\Controllers\Api\ExerciseRoutineController;
 use App\Http\Controllers\Api\GymController;
 use App\Http\Controllers\Api\GymUserController;
+use App\Http\Controllers\Api\MediaController;
 use App\Http\Controllers\Api\RoutineController;
 use App\Http\Controllers\Api\UserController;
-use App\Models\GymUser;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,40 +33,32 @@ Route::post('/login', [LoginController::class, 'login']);
 
 //Route::apiResource('gyms', GymController::class)->middleware('auth:api');
 
-//Route::apiResource('gyms', GymController::class)->middleware('auth:api');
-Route::get('/profile', [UserController::class, 'index'])->name('profile.index');
-Route::post('/profile', [UserController::class, 'store'])->name('profile.store');
+//Route::apiResource('gyms', GymController::class)->middleware('auth:api')
 
-Route::get('/gym/profile', [GymController::class, 'index'])->name('gym.profile.index');
-Route::post('/gym/profile', [GymController::class, 'store'])->name('gym.profile.store');
-
-Route::get('/gym_user', [GymUserController::class, 'index'])->name('gym.user.index');
-Route::get('/gym_user/{gym_user}', [GymUserController::class, 'show'])->name('gym.user.show');
-
-Route::group(['middleware' => ['is_admin']], function () {
-
-    Route::get('users', [UserController::class, 'index']);
-    Route::post('users', [UserController::class, 'store']);
-    Route::put('users/{user}', [UserController::class, 'update']);
-    Route::patch('users/{user}', [UserController::class, 'update']);
-    //Route::post('users/{user}', [UserController::class, 'update']);
-    Route::delete('users/{user}', [UserController::class, 'delete']);
-
-    Route::get('gyms', [GymController::class, 'index']);
-    Route::post('gyms', [GymController::class, 'store']);
-    Route::put('gyms/{gym}', [GymController::class, 'update']);
-    Route::patch('gyms/{gym}', [GymController::class, 'update']);
-    //Route::post('gyms/{gym}', [GymController::class, 'update']);
-    Route::delete('gyms/{gym}', [GymController::class, 'delete']);
-
-});
-
-Route::group(['middleware' => ['auth:api']], function () {
+Route::group(['middleware' => ['auth:api','is_admin']], function () {
 
     Route::apiResource('gyms', GymController::class);
     Route::apiResource('users', UserController::class);
     Route::apiResource('routines', RoutineController::class);
     Route::apiResource('exercises', ExerciseController::class);
     Route::apiResource('exercise_routine', ExerciseRoutineController::class);
+    Route::apiResource('gym_user', GymUserController::class);
+    Route::apiResource('media', MediaController::class);
+
+    //View users and their gyms profile
+    // Route::get('/gym_user', [GymUserController::class, 'index'])->name('gym.user.index');
+    // Route::get('/gym_user/{gym_user}', [GymUserController::class, 'show'])->name('gym.user.show');
+
+});
+
+Route::group(['middleware' => ['auth:api']], function () {
+
+    //User can view and change their profile
+    Route::get('profile', [UserController::class, 'index'])->name('profile.index');
+    Route::post('profile', [UserController::class, 'store'])->name('profile.store');
+
+    //User view and change their gym profile
+    Route::get('/gym/profile', [GymController::class, 'index'])->name('gym.profile.index');
+    Route::post('/gym/profile', [GymController::class, 'store'])->name('gym.profile.store');
 
 });

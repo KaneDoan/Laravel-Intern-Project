@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Routine;
+namespace App\Http\Requests\GymUser;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRoutineRequest extends FormRequest
+class StoreGymUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class UpdateRoutineRequest extends FormRequest
     public function rules()
     {
         return [
-            'video_path_url' => 'video | mimes:mp4,mov,ogg,flv | max:10240',
-            'thumbnail_path_url' => 'image | mimes:jpg,bmp,png,jpeg | max:10240',
+            //
         ];
     }
 }

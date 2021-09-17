@@ -25,16 +25,19 @@ class RoutineController extends Controller
     public function index(ManageRoutineRequest $request)
     {
         return QueryBuilder::for(Routine::class)
-            ->allowedIncludes(['name', 'slug', 'default_set', 'timer', 'rest_timer'])
-            ->allowedSorts([
-                'id',
-                'name',
-                'default_set',
-                'timer',
-                'rest_timer',
-                'created_at',
-            ])
-            ->paginate(request('per_page') ?? 15);
+
+        ->allowedIncludes(['exercises'])
+        ->allowedAppends(['video_path_url','thumbnail_path_url'])
+        ->allowedSorts([
+            'id',
+            'name',
+            'default_set',
+            'timer',
+            'rest_timer',
+            'created_at',
+        ])
+
+        ->paginate(request('per_page') ?? 15);
     }
 
     /**
@@ -49,6 +52,16 @@ class RoutineController extends Controller
 
         $routine = Routine::create($data);
 
+        if ($routine) {
+            if ($request->hasFile('video_path_url')) {
+                $routine->addMediaFromRequest('video_path_url')->toMediaCollection('routine');
+            }
+            if ($request->hasFile('thumbnail_path_url')){
+                $routine->addMediaFromRequest('thumbnail_path_url')->toMediaCollection('routine');
+            }
+
+        }
+
         return response([ 'routine' => new RoutineResource($routine), 'message' => 'Routine created successfully'], 201);
     }
 
@@ -60,6 +73,13 @@ class RoutineController extends Controller
      */
     public function show(ManageRoutineRequest $request, Routine $routine)
     {
+        $routine =  QueryBuilder::for(Routine::whereId($routine->id))
+
+    	->allowedIncludes([
+	        'exercises',
+	    ])
+    	->first();
+
         return response([ 'routine' => new RoutineResource($routine), 'message' => 'Routine retrieved successfully'], 200);
     }
 

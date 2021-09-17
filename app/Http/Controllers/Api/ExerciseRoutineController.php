@@ -25,7 +25,12 @@ class ExerciseRoutineController extends Controller
     public function index(ManageExerciseRoutineRequest $request)
     {
         $exerciseRoutine =  QueryBuilder::for(ExerciseRoutine::class)
-        ->allowedIncludes(['sort_id', 'display_id', 'default_reps'])
+
+        ->allowedIncludes([
+            'exercise',
+            'routine',
+        ])
+
         ->allowedSorts([
             'id',
             'sort_id',
@@ -35,8 +40,6 @@ class ExerciseRoutineController extends Controller
         ])
 
         ->paginate(request('per_page') ?? 15);
-
-        $exerciseRoutine = ExerciseRoutine::with(['exercise', 'routine'])->get();
 
         return $exerciseRoutine;
 
@@ -59,6 +62,7 @@ class ExerciseRoutineController extends Controller
         [
             'exercise_routine' => new ExerciseRoutineResource($exerciseRoutine),
             'message' => 'Exercise routine created successfully'
+
         ], 201);
     }
 
@@ -70,13 +74,21 @@ class ExerciseRoutineController extends Controller
      */
     public function show(ManageExerciseRoutineRequest $request, ExerciseRoutine $exerciseRoutine)
     {
-        $exerciseRoutine = ExerciseRoutine::with(['exercise', 'routine'])->get();
+        //$exerciseRoutine = ExerciseRoutine::with(['exercise', 'routine'])->get();
+        $exerciseRoutine =  QueryBuilder::for(ExerciseRoutine::whereId($exerciseRoutine->id))
+
+        ->allowedIncludes([
+            'exercise',
+            'routine',
+        ])
+        ->first();
 
         return response(
 
         [
             'exercise_routine' => new ExerciseRoutineResource($exerciseRoutine),
             'message' => 'Exercise routine retrieved successfully'
+
         ], 200);
     }
 

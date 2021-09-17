@@ -14,7 +14,8 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->is_admin;
+        //return Auth::user()->is_admin;
+        return true;
     }
 
     /**
@@ -24,8 +25,18 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+
+        $rules = [];
+
+        if ($this->get('email') && $this->has('email')) {
+            $rules['email'] = 'email|unique:users,email,'.$this->route('id');
+        }
+
+        if ($this->get('password') && $this->has('password')) {
+            $rules['password'] = 'string|confirmed';
+        }
+
+        return $rules;
+
     }
 }

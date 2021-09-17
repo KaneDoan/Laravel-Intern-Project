@@ -27,10 +27,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        if (!Auth::user()->is_admin) return Auth::user();
+        // if (!Auth::user()->is_admin) return Auth::user();
 
         return QueryBuilder::for(User::class)
-            ->allowedIncludes(['full_name', 'email'])
+            ->allowedIncludes(['gyms'])
             ->allowedSorts([
                 'id',
                 'full_name',
@@ -50,6 +50,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+
         $data = $request->all();
 
         // $validator = Validator::make($data, [
@@ -83,6 +84,12 @@ class UserController extends Controller
      */
     public function show(ManageUserRequest $request, User $user)
     {
+        $user =  QueryBuilder::for(User::whereId($user->id))
+    			->allowedIncludes([
+	    			'gyms',
+	    		])
+    			->first();
+
         return response([ 'user' => new UserResource($user), 'message' => 'User retrieved successfully'], 200);
     }
 

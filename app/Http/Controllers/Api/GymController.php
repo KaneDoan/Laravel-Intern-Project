@@ -11,7 +11,6 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 use App\Http\Requests\Gym\StoreGymRequest;
 use App\Http\Requests\Gym\UpdateGymRequest;
@@ -27,7 +26,7 @@ class GymController extends Controller
     public function index(ManageGymRequest $request)
     {
         return QueryBuilder::for(Gym::class)
-            ->allowedIncludes(['name', 'pin', 'no_of_displays'])
+            ->allowedIncludes(['users'])
             ->allowedSorts([
                 'id',
                 'name',
@@ -77,6 +76,12 @@ class GymController extends Controller
      */
     public function show(ManageGymRequest $request, Gym $gym)
     {
+        $gym =  QueryBuilder::for(Gym::whereId($gym->id))
+    			->allowedIncludes([
+	    			'users',
+	    		])
+    			->first();
+
         return response([ 'gym' => new GymResource($gym), 'message' => 'Gym retrieved successfully'], 200);
     }
 

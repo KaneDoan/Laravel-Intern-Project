@@ -24,8 +24,10 @@ class StoreExerciseRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'slug' => 'required',
+            'name' => 'required | max:255',
+            'slug' => 'required | alpha_dash',
+            'video_path_url' => 'video | mimes:mp4,mov,ogg,flv | max:10240',
+            'thumbnail_path_url' => 'image | mimes:jpg,bmp,png,jpeg | max:10240',
         ];
     }
 }

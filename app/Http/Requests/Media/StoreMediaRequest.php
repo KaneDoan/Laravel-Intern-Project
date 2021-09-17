@@ -24,7 +24,7 @@ class StoreMediaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'media' => ['required', 'file']
         ];
     }
 }

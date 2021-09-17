@@ -25,13 +25,13 @@ class ExerciseController extends Controller
     public function index(ManageExerciseRequest $request)
     {
         return QueryBuilder::for(Exercise::class)
-        ->allowedIncludes(['name', 'slug'])
+        ->allowedIncludes(['routines'])
+        ->allowedAppends(['video_path_url','thumbnail_path_url'])
         ->allowedSorts([
             'id',
             'name',
             'created_at',
         ])
-
         ->paginate(request('per_page') ?? 15);
     }
 
@@ -47,6 +47,20 @@ class ExerciseController extends Controller
 
         $exercise = Exercise::create($data);
 
+        if ($exercise) {
+            if ($request->hasFile('video_path_url')) {
+                $exercise->addMediaFromRequest('video_path_url')->toMediaCollection('exercise');
+            }
+            if ($request->hasFile('thumbnail_path_url')){
+                $exercise->addMediaFromRequest('thumbnail_path_url')->toMediaCollection('exercise');
+            }
+
+        }
+
+        //$exercise->addMedia(storage_path('media/beach.jpg'))->toMediaCollection('exercise');
+
+
+
         return response([ 'exercise' => new ExerciseResource($exercise), 'message' => 'Exercise created successfully'], 201);
     }
 
@@ -58,6 +72,13 @@ class ExerciseController extends Controller
      */
     public function show(ManageExerciseRequest $request, Exercise $exercise)
     {
+        $exercise =  QueryBuilder::for(Exercise::whereId($exercise->id))
+
+        ->allowedIncludes([
+            'routines',
+        ])
+        ->first();
+
         return response([ 'exercise' => new ExerciseResource($exercise), 'message' => 'Exercise retrieved successfully'], 200);
     }
 
@@ -71,6 +92,14 @@ class ExerciseController extends Controller
     public function update(UpdateExerciseRequest $request, Exercise $exercise)
     {
         $exercise->update($request->all());
+
+        if ($exercise) {
+            if ($request->hasFile('file')) {
+
+                $exercise->addMediaFromRequest('file')->toMediaCollection('exercise');
+
+            }
+        }
 
         return response([ 'exercise' => new ExerciseResource($exercise), 'message' => 'Exercise updated successfully'], 200);
     }
