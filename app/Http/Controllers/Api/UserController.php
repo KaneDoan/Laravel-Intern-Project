@@ -67,13 +67,13 @@ class UserController extends Controller
         //     return response([ 'error' => $validator->errors(), 'Validation Error' ]);
         // }
 
-        $data = array(
+        // $data = array(
 
-            "full_name"=>$request->full_name,
-            "email"=>$request->email,
-            "password"=>bcrypt($request->password),
+        //     "full_name"=>$request->full_name,
+        //     "email"=>$request->email,
+        //     "password"=>bcrypt($request->password),
 
-        );
+        // );
 
         $user = User::create($data);
 
