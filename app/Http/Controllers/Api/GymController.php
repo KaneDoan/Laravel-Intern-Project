@@ -27,6 +27,10 @@ class GymController extends Controller
     {
         return QueryBuilder::for(Gym::class)
             ->allowedIncludes(['users'])
+            ->allowedFilters([
+                AllowedFilter::scope('search'),
+                AllowedFilter::scope('search_by_name')
+            ])
             ->allowedSorts([
                 'id',
                 'name',

@@ -31,6 +31,10 @@ class UserController extends Controller
 
         return QueryBuilder::for(User::class)
             ->allowedIncludes(['gyms'])
+            ->allowedFilters([
+                AllowedFilter::scope('search'),
+                AllowedFilter::scope('search_by_name')
+            ])
             ->allowedSorts([
                 'id',
                 'full_name',

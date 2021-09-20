@@ -37,5 +37,19 @@ class Gym extends Model
         return $this->belongsToMany(User::class, 'gym_users')->whereNull('gym_users.deleted_at');
     }
 
+    public function scopeSearch($query, $search = '')
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('name', 'like', '%'.$search.'%')
+                  ->orWhere('pin', 'like', '%'.$search.'%');
+        });
+    }
+
+    public function scopeSearchByName($query, $search = '')
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('name', 'like', '%'.$search.'%');
+        });
+    }
 
 }

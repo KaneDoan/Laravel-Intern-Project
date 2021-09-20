@@ -62,4 +62,19 @@ class User extends Authenticatable
             return false;
         }
     }
+
+    public function scopeSearch($query, $search = '')
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('full_name', 'like', '%'.$search.'%')
+                  ->orWhere('email', 'like', '%'.$search.'%');
+        });
+    }
+
+    public function scopeSearchByName($query, $search = '')
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('full_name', 'like', '%'.$search.'%');
+        });
+    }
 }

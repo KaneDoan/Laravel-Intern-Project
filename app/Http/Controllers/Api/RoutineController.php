@@ -27,6 +27,10 @@ class RoutineController extends Controller
         return QueryBuilder::for(Routine::class)
 
         ->allowedIncludes(['exercises'])
+        ->allowedFilters([
+            AllowedFilter::scope('search'),
+            AllowedFilter::scope('search_by_name')
+        ])
         ->allowedAppends(['video_path_url','thumbnail_path_url'])
         ->allowedSorts([
             'id',

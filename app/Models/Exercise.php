@@ -19,6 +19,7 @@ class Exercise extends Model implements HasMedia
     protected $fillable = [
         'name',
         'slug',
+        'description',
     ];
 
     public function getSlugOptions() : SlugOptions
@@ -49,6 +50,13 @@ class Exercise extends Model implements HasMedia
         $media = collect($this->media)->last();
         if (isset($media)) return $media->getUrl();
         return null;
+    }
+
+    public function scopeSearchByName($query, $search = '')
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('name', 'like', '%'.$search.'%');
+        });
     }
 
 }

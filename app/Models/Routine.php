@@ -19,6 +19,8 @@ class Routine extends Model implements HasMedia
     protected $fillable = [
         'name',
         'slug',
+        'code',
+        'description',
         'default_set',
         'timer',
         'rest_timer',
@@ -52,6 +54,21 @@ class Routine extends Model implements HasMedia
         $media = collect($this->media)->last();
         if (isset($media)) return $media->getUrl();
         return null;
+    }
+
+    public function scopeSearch($query, $search = '')
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('name', 'like', '%'.$search.'%')
+                  ->orWhere('code', 'like', '%'.$search.'%');
+        });
+    }
+
+    public function scopeSearchByName($query, $search = '')
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('name', 'like', '%'.$search.'%');
+        });
     }
 
 }
