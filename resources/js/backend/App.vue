@@ -2,7 +2,6 @@
   <div>
     <div>
         {{message}}
-        hi
     </div>
   </div>
 </template>
@@ -14,7 +13,6 @@ export default {
   computed: {},
   data() {
     return {
-
     }
   }
 };

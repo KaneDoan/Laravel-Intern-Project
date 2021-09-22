@@ -9,14 +9,14 @@ window.Vue = Vue;
 window.$ = window.jQuery = require('jquery');
 
 // Boilerplate
-//require('../plugins');
+require('../plugins');
 require('../bootstrap');
 
 Model.$http = axios;
 Vue.prototype.moment = window.moment;
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-import App from './App.vue'
+//import App from './App.vue'
 
 const files = require.context("./", true, /\.vue$/i);
 files.keys().map(key =>
@@ -32,8 +32,4 @@ files.keys().map(key =>
 const app = new Vue({
     // vuetify: vuetify,
     el: "#app",
-    data: {
-        message: "testing vue"
-    }
-    // components: { App }
 });

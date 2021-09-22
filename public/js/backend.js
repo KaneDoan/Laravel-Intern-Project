@@ -4397,7 +4397,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var default_layout = "default";
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   computed: {},
@@ -4455,7 +4454,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpinejs__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_api_query__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-api-query */ "./node_modules/vue-api-query/build/index.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./App.vue */ "./resources/js/backend/App.vue");
 
 
  // import axios from 'axios';
@@ -4463,14 +4461,14 @@ __webpack_require__.r(__webpack_exports__);
 
 window.Vue = vue__WEBPACK_IMPORTED_MODULE_2__["default"];
 window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"); // Boilerplate
-//require('../plugins');
+
+__webpack_require__(/*! ../plugins */ "./resources/js/plugins.js");
 
 __webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
 
 vue_api_query__WEBPACK_IMPORTED_MODULE_1__.Model.$http = axios;
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].prototype.moment = window.moment; // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-
+//import App from './App.vue'
 
 var files = __webpack_require__("./resources/js/backend sync recursive \\.vue$/");
 
@@ -4479,11 +4477,7 @@ files.keys().map(function (key) {
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_2__["default"]({
   // vuetify: vuetify,
-  el: "#app",
-  data: {
-    message: "testing vue"
-  } // components: { App }
-
+  el: "#app"
 });
 
 /***/ }),
@@ -4529,6 +4523,134 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/plugins.js":
+/*!*********************************!*\
+  !*** ./resources/js/plugins.js ***!
+  \*********************************/
+/***/ (() => {
+
+/**
+ * Place any jQuery/helper plugins in here.
+ */
+$(function () {
+  /**
+   * Checkbox tree for permission selecting
+   */
+  var permissionTree = $('.permission-tree :checkbox');
+  permissionTree.on('click change', function () {
+    if ($(this).is(':checked')) {
+      $(this).siblings('ul').find('input[type="checkbox"]').attr('checked', true).attr('disabled', true);
+    } else {
+      $(this).siblings('ul').find('input[type="checkbox"]').removeAttr('checked').removeAttr('disabled');
+    }
+  });
+  permissionTree.each(function () {
+    if ($(this).is(':checked')) {
+      $(this).siblings('ul').find('input[type="checkbox"]').attr('checked', true).attr('disabled', true);
+    }
+  });
+  /**
+   * Disable submit inputs in the given form
+   *
+   * @param form
+   */
+
+  function disableSubmitButtons(form) {
+    form.find('input[type="submit"]').attr('disabled', true);
+    form.find('button[type="submit"]').attr('disabled', true);
+  }
+  /**
+   * Enable the submit inputs in a given form
+   *
+   * @param form
+   */
+
+
+  function enableSubmitButtons(form) {
+    form.find('input[type="submit"]').removeAttr('disabled');
+    form.find('button[type="submit"]').removeAttr('disabled');
+  }
+  /**
+   * Disable all submit buttons once clicked
+   */
+
+
+  $('form').submit(function () {
+    disableSubmitButtons($(this));
+    return true;
+  });
+  /**
+   * Add a confirmation to a delete button/form
+   */
+
+  $('body').on('submit', 'form[name=delete-item]', function (e) {
+    var _this = this;
+
+    e.preventDefault();
+    Swal.fire({
+      title: 'Are you sure you want to delete this item?',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm Delete',
+      cancelButtonText: 'Cancel',
+      icon: 'warning'
+    }).then(function (result) {
+      if (result.value) {
+        _this.submit();
+      } else {
+        enableSubmitButtons($(_this));
+      }
+    });
+  }).on('submit', 'form[name=confirm-item]', function (e) {
+    var _this2 = this;
+
+    e.preventDefault();
+    Swal.fire({
+      title: 'Are you sure you want to do this?',
+      showCancelButton: true,
+      confirmButtonText: 'Continue',
+      cancelButtonText: 'Cancel',
+      icon: 'warning'
+    }).then(function (result) {
+      if (result.value) {
+        _this2.submit();
+      } else {
+        enableSubmitButtons($(_this2));
+      }
+    });
+  }).on('click', 'a[name=confirm-item]', function (e) {
+    var _this3 = this;
+
+    /**
+     * Add an 'are you sure' pop-up to any button/link
+     */
+    e.preventDefault();
+    Swal.fire({
+      title: 'Are you sure you want to do this?',
+      showCancelButton: true,
+      confirmButtonText: 'Continue',
+      cancelButtonText: 'Cancel',
+      icon: 'info'
+    }).then(function (result) {
+      result.value && window.location.assign($(_this3).attr('href'));
+    });
+  }); // Remember tab on page load
+
+  $('a[data-toggle="tab"], a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
+    var hash = $(e.target).attr('href');
+    history.pushState ? history.pushState(null, null, hash) : location.hash = hash;
+  });
+  var hash = window.location.hash;
+
+  if (hash) {
+    $('.nav-link[href="' + hash + '"]').tab('show');
+  } // Enable tooltips everywhere
+
+
+  $('[data-toggle="tooltip"]').tooltip();
+});
 
 /***/ }),
 
@@ -43935,7 +44057,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", [_vm._v("\n      " + _vm._s(_vm.message) + "\n      hi\n  ")])
+    _c("div", [_vm._v("\n      " + _vm._s(_vm.message) + "\n  ")])
   ])
 }
 var staticRenderFns = []

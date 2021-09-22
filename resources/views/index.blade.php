@@ -17,8 +17,8 @@
                 </div>
             @endif
 
-        <h1>Welcome to StepzTV</h1>
-                <app> </app>
+        <welcome></welcome>
+
         </div>
     </body>
 </html>
