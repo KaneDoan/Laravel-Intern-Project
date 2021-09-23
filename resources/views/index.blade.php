@@ -16,10 +16,6 @@
                     @endauth
                 </div>
             @endif
-
         <h1>Welcome to StepzTV</h1>
-                <app> </app>
         </div>
-    </body>
-</html>
 @endsection

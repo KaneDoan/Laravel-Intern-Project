@@ -30,6 +30,9 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "vue-api-query": "^1.9.1"
+        "element-ui": "^2.15.6",
+        "portal-vue": "^2.1.7",
+        "vue-api-query": "^1.9.1",
+        "vuetify": "^2.5.8"
     }
 }

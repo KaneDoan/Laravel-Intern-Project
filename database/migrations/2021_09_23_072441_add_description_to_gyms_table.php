@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCodeAndDescriptionToRoutines extends Migration
+class AddDescriptionToGymsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class AddCodeAndDescriptionToRoutines extends Migration
      */
     public function up()
     {
-        Schema::table('routines', function (Blueprint $table) {
-            Schema::table('routines', function (Blueprint $table) {
-                $table->string('code')->nullable();
-                $table->string('description')->nullable();
-            });
+        Schema::table('gyms', function (Blueprint $table) {
+            $table->string('description')->nullable();
         });
     }
 
@@ -28,8 +25,7 @@ class AddCodeAndDescriptionToRoutines extends Migration
      */
     public function down()
     {
-        Schema::table('routines', function (Blueprint $table) {
-            $table->dropColumn('code');
+        Schema::table('gyms', function (Blueprint $table) {
             $table->dropColumn('description');
         });
     }

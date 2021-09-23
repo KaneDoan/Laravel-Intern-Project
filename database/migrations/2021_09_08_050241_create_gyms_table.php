@@ -17,6 +17,7 @@ class CreateGymsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->string('description')->nullable();
             $table->string('pin')->nullable();
             $table->integer('no_of_displays');
             $table->softDeletes();

@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
-/**
- * Class DashboardController.
- */
+//use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
 class DashboardController
 {
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
     public function index()
     {
-        return view('backend.dashboard');
+        return view('dashboard');
     }
 }

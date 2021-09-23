@@ -1,21 +1,20 @@
 <template>
-  <div>
-    <div>
-        {{message}}
-        hi
-    </div>
-  </div>
-</template>
-<script>
-const default_layout = "default";
 
+</template>
+
+<script>
+// import Header from "./components/Header.vue";
+// import Sidebar from './components/SideBar.vue';
+// import Footer from "./components/Footer.vue";
 
 export default {
-  computed: {},
-  data() {
-    return {
-
-    }
-  }
+	// components: {
+	// 	Header,
+	// 	Sidebar,
+	// 	Footer
+	// },
+    // created() {
+	// 	document.querySelector("body").style.backgroundColor = "#fff";
+	// }
 };
 </script>
