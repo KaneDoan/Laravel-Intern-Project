@@ -11,12 +11,6 @@ const mix = require('laravel-mix');
  |
  */
 
- mix
- // .js('resources/js/app.js', 'public/js')
- .js('resources/js/backend/app.js', 'js/backend.js').vue({ version: 2 })
- .sass('resources/sass/app.scss', 'public/css')
- .postCss('resources/css/app.css', 'public/css', [
-     require('postcss-import'),
-     require('tailwindcss'),
-     require('autoprefixer'),
-]);
+mix.js('resources/js/app.js', 'public/js')
+    .sass('resources/sass/app.scss', 'public/css')
+    .sourceMaps();

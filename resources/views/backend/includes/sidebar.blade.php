@@ -42,18 +42,8 @@
             <span>User Manager</span>
         </a>
     </li>
-
 </ul>
 
-<style>
-  .el-dropdown-link {
-    cursor: pointer;
-    color: #409EFF;
-  }
-  .el-icon-arrow-down {
-    font-size: 12px;
-  }
-</style>
 
 
 @endif

@@ -1,26 +1,22 @@
 import 'alpinejs';
 import { Model } from "vue-api-query";
 import Vue from "vue";
-import Element from 'element-ui'
-// import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.min.css'
-Vue.use(Element)
-// import axios from 'axios';
-//import App from './App.vue';
-//Vue.use(Vuetify)
+import axios from 'axios';
+
 
 window.Vue = Vue;
 window.$ = window.jQuery = require('jquery');
 
+
+
 // Boilerplate
-require('../plugins');
+// require('../plugins');
+require('bootstrap');
 require('../bootstrap');
-require('alpinejs');
 
 Model.$http = axios;
-//Vue.prototype.moment = window.moment;
+Vue.prototype.moment = window.moment;
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 const files = require.context("./", true, /\.vue$/i);
 files.keys().map(key =>
     Vue.component(
@@ -32,8 +28,20 @@ files.keys().map(key =>
     )
 );
 
-const app = new Vue({
-    //vuetify: vuetify,
-    el: "#app",
 
+
+
+Vue.component(
+    "paginated-table",
+    require("../global/components/PaginatedTable.vue").default
+);
+
+Vue.component("pagination", require("laravel-vue-pagination"));
+
+
+
+
+const app = new Vue({
+    el: "#app"
 });
+

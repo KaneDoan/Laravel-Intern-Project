@@ -6,7 +6,7 @@ import {
 export default class Model extends BaseModel {
     // define a base url for a REST API
     baseURL() {
-        return "/dashboard";
+        return "/api";
     }
 
     // implement a default request method

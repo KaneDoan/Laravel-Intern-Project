@@ -17,5 +17,6 @@
                 </div>
             @endif
         <h1>Welcome to StepzTV</h1>
+        <app></app>
         </div>
 @endsection

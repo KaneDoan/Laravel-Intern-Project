@@ -33,7 +33,11 @@ require __DIR__.'/auth.php';
 
 
 Route::resource('/gyms', GymController::class);
-Route::resource('/gyms', ExerciseController::class);
-Route::resource('/gyms', RoutineController::class);
-Route::resource('/gyms', UserController::class);
+Route::resource('/exercises', ExerciseController::class);
+Route::resource('/routines', RoutineController::class);
+Route::resource('/users', UserController::class);
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

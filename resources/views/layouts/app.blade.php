@@ -23,7 +23,6 @@
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('fontawesome-free/css/all.min.css') }}" />
     <!-- Scripts -->
 
     <script src="{{ mix('js/backend.js') }}" defer></script>

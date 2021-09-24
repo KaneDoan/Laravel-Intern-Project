@@ -1,0 +1,108 @@
+
+/*****************/
+/*  Site colors  */
+
+$hf-teal:            #009e98;
+$hf-teal-hover:      #04807b;
+$hf-red:             #d41919;
+
+$hf-slate:           #2b2b2b;
+
+$hf-primary:         #009D97;
+$hf-primary-05:      rgba(0, 157, 151, 0.05);
+$hf-secondary:       #F58920;
+
+$hf-green:           #0DA44D;
+
+$hf-bg-green:        #EAF7EF;
+
+$bg-grey:            #f9f9f9;
+$read-grey:          #f1f1f1;
+$border-grey:        #e0e0e0;
+$border-2-grey:      #e0e0e0;
+$calendar-fill:      #F3F3F3;
+$table-hover:        #f4f4f4;
+$dark-grey:          #888888;
+
+$th-border:          #e1e1e1;
+
+$input-border:       #e3e3e3;
+
+$page-bg:             $bg-grey;
+
+$icon-white:         rgba(255, 255, 255, 0.5);
+
+/***********/
+/*  Fonts  */
+$primary-font:        'Roboto', sans-serif;
+$accent-font:         'Roboto', sans-serif;
+
+$heading-font:        $primary-font;
+$body-font:           $primary-font;
+
+
+/* <h1> */
+$h1-font-size:        28px;
+$h1-font-weight:      700;
+$h1-font-family:      $primary-font;
+$h1-line-height:      24px;
+$h1-letter-spacing:   1.4px;
+
+/* <h2> */
+$h2-font-size:        22px;
+$h2-font-weight:      700;
+$h2-font-family:      $primary-font;
+$h2-letter-spacing:   1px;
+
+/* <h3> */
+$h3-font-size:        18px;
+$h3-font-weight:      700;
+$h3-font-family:      $primary-font;
+$h3-letter-spacing:   2px;
+
+/* <h4> */
+$h4-font-size:        16px;
+$h4-font-weight:      700;
+$h4-font-family:      $primary-font;
+$h4-letter-spacing:   1px;
+$h4-line-height:      24px;
+
+/* <p> */
+$p-font-size:         16px;
+$p-font-weight:       400;
+$p-font-family:       $body-font;
+$p-letter-spacing:    1px;
+$p-line-height:       24px;
+
+/* labels */
+$lb-font-size:         16px;
+$lb-font-weight:       400;
+$lb-font-family:       $body-font;
+$lb-letter-spacing:    1px;
+$lb-line-height:       24px;
+
+
+/* inputs */
+$in-padding:           12px 15px;
+$in-font-size:         16px;
+$in-font-weight:       400;
+$in-font-family:       $body-font;
+$in-letter-spacing:    1px;
+$in-line-height:       24px;
+$in-bg-color:          #fff;
+$in-border:            1px solid $input-border;
+$in-b-rad:             5px;
+/****************/
+
+
+/****************/
+/*  Dimensions  */
+$nav-height:           57px;
+
+$sidenav-width:        180px;
+/****************/
+
+
+/*************/
+/*  Timings  */
+$all-3:                0.3s all ease-in-out;

@@ -2,8 +2,9 @@
 	<div class="container-fluid">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <router-link to="/">Dashboard</router-link>
+          <router-link to="/dashboard">Dashboard</router-link>
         </li>
+
       </ol>
 
       <div class="row">
