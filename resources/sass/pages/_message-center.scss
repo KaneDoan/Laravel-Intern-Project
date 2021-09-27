@@ -1,0 +1,126 @@
+.v-window__container .v-card.message-center-card {
+    padding-bottom: 0 !important;
+}
+
+/*
+* A weird workaround for an instance where
+* the title is attached to the component
+*/
+.message-index-wrap {
+    h2 {
+        font-family: $h1-font-family !important;
+        font-size: $h1-font-size !important;
+        font-weight: $h1-font-weight !important;
+        line-height: $h1-line-height !important;
+        letter-spacing: $h1-letter-spacing !important;
+    }
+}
+
+.message-center-select-row {
+    border-right: 1px solid $border-2-grey;
+
+    .col {
+        padding: 0 !important;
+    }
+
+    .msg-button {
+        padding: 20px 15px !important;
+        width: 100%;
+        color: $dark-grey;
+        font-weight: 700 !important;
+        font-size: 14px !important;
+        text-align: left;
+        background-color: transparent;
+        transition: $all-3;
+
+        &.active,
+        &:hover {
+            color: $hf-primary;
+            background-color: $hf-primary-05;
+            transition: $all-3;
+        }
+    }
+}
+
+.msg-list {
+    border-radius: 0;
+    // border-right: 1px solid $border-2-grey !important;
+    border-right: none !important;
+
+    li.msg-summary-card {
+        cursor: pointer;
+        padding: 15px;
+        border: none !important;
+        border-bottom: 1px solid $border-2-grey !important;
+
+        p {
+            letter-spacing: unset;
+        }
+
+        &.isread {
+            background-color: $read-grey;
+        }
+
+        &.active-message {
+            background-color: $hf-primary-05;
+        }
+
+        .msg-name {
+            font-weight: 500;
+        }
+    }
+}
+
+.msg-show-wrap {
+
+    .msg-email-card,
+    .msg-sms-card {
+        // Magic number height calc
+        max-height: calc(100vh - 570px);
+        padding: 20px 35px;
+    }
+
+
+    .msg-sms-content {
+        padding: 15px 10px;
+        width: 290px;
+        border-radius: 10px;
+        border: $in-border;
+
+        p {
+            letter-spacing: unset;
+        }
+    }
+
+    .msg-email-card {
+        overflow: auto;
+    }
+}
+
+.tag-wrap {
+    .v-chip__content {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .v-input__slot {
+        height: unset !important;
+        padding-left: 2px !important;
+        padding-bottom: 5px !important;
+        box-shadow: none !important;
+        border: $in-border !important;
+        border-radius: $in-b-rad !important;
+
+        .v-input__append-inner {
+            display: none;
+        }
+    }
+}
+
+.contact-tag {
+    min-height: 30px !important;
+    margin-top: 5px !important;
+    background-color: $bg-grey !important;
+    border: $in-border;
+    border-radius: $in-b-rad !important;
+}

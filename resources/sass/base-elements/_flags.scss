@@ -1,0 +1,13 @@
+%base-flag {
+    padding: 4px 12px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: $body-font;
+    border-radius: 21px;
+}
+
+.red-flag {
+    @extend %base-flag;
+    color: #fff;
+    background-color: $hf-red;
+}

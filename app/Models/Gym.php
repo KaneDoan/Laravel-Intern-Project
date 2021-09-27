@@ -17,6 +17,7 @@ class Gym extends Model
         'name',
         'slug',
         'pin',
+        'description',
         'no_of_displays',
     ];
 

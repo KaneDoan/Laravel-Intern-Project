@@ -1,16 +1,16 @@
 @if(Auth::check())
 
 <ul class="sidebar navbar-nav">
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="#">
-            <i class="fal fa-tv"></i>
+            <i class="fas fa-tv"></i>
             <span>Gym Control</span>
         </a>
     </li>
 
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="gyms">
-            <i class="fal fa-building"></i>
+            <i class="fas fa-building"></i>
             <span>Gym Manager</span>
         </a>
     </li>
@@ -25,7 +25,7 @@
             aria-haspopup="true"
             aria-expanded="false"
         >
-            <i class="fas fa-fw fa-folder"></i>
+            <i class="fas fa-folder"></i>
             <span>Workout Manager</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
@@ -36,7 +36,7 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#">
-            <i class="fal fa-user-lock"></i>
+            <i class="fas fa-user-lock"></i>
             <span>User Manager</span>
         </a>
     </li>

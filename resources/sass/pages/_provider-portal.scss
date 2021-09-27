@@ -1,0 +1,153 @@
+.job_schedule {
+    background: $hf-secondary;
+}
+
+.job_completed {
+    background: $hf-primary;
+}
+
+.job_incomplete {
+    background: $dark-grey;
+}
+
+.occurence-calendar-wrap {
+    margin-top: 17px;
+
+    .v-input__slot {
+        padding-left: 10px;
+        border: $in-border;
+        border-radius: $in-b-rad !important;
+
+        &:before {
+            border-top: none !important;
+        }
+
+        .v-label.v-label--active {
+            top: -4px !important;
+        }
+
+        .v-input__append-inner {
+            margin-top: 9px;
+
+            .fal {
+                font-size: 16px !important;
+            }
+        }
+    }
+}
+
+.hf-occ-calendar-wrap {
+
+    @include media-breakpoint-down(md) {
+        > div {
+            &:first-child {
+                display: block !important;
+                height: 130px !important;
+
+                header {
+                    height: 130px !important;
+
+                    .v-toolbar__content {
+                        height: 130px !important;
+                    }
+                }
+            }
+        }
+    }
+    .v-calendar-daily_head-day {
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+
+        &.v-present {
+            background-color: $hf-bg-green !important;
+
+            .primary--text {
+                font-size: 14px !important;
+                font-weight: 700;
+                color: $hf-green !important;
+            }
+
+            .v-btn {
+                height: unset;
+                font-size: 14px !important;
+                font-weight: 700;
+                color: $hf-green;
+                background-color: transparent !important;
+            }
+        }
+
+        &.v-past,
+        &.v-future {
+            .v-calendar-daily_head-weekday {
+                font-size: 14px !important;
+                font-weight: 700;
+                color: $dark-grey !important;
+            }
+
+            .v-btn {
+                height: unset;
+                font-size: 14px !important;
+                font-weight: 700;
+                color: $dark-grey;
+                background-color: transparent !important;
+            }
+        }
+    }
+
+    .v-calendar-daily__day {
+        &.v-past,
+        &.v-future {
+            .v-calendar-daily__day-interval {
+                background-color: $calendar-fill !important;
+            }
+        }
+
+        &.v-present {
+            .v-calendar-daily__day-interval {
+                background-color: $hf-bg-green !important;
+            }
+        }
+    }
+}
+
+.occ-tab-btn-wrap {
+    .v-tabs-slider-wrapper {
+        display: none !important;
+    }
+
+    .v-slide-group__content {
+        border-bottom: none;
+    }
+
+    .v-tabs-bar__content .v-tab {
+        text-transform: capitalize !important;
+
+        &:nth-child(2) {
+            color: $hf-teal !important;
+            border: 1px solid $hf-teal !important;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            transition: $all-3;
+
+            &.active {
+                color: #fff !important;
+                background-color: $hf-teal !important;
+                border: 1px solid $hf-teal !important;
+            }
+        }
+
+        &:nth-child(3) {
+            color: $hf-red !important;
+            border: 1px solid $hf-red !important;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            transition: $all-3;
+
+            &.active {
+                color: #fff !important;
+                background-color: $hf-red !important;
+                border: 1px solid $hf-red !important;
+            }
+        }
+    }
+}

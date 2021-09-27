@@ -1,0 +1,19 @@
+@import 'vue-datetime';
+@import 'vuetify';
+@import 'tiptap-vuetify';
+
+// Unreasonable base style
+.c-main {
+    padding-top: 28px;
+}
+
+
+// Vuetify doesn't seem to support custom border colors on inptus
+.theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state)>.v-input__control>.v-input__slot fieldset {
+    color: $input-border !important;
+}
+
+// Use color cue to indicate error
+.error--text fieldset {
+    border: 2px solid $hf-red !important;
+}

@@ -1,0 +1,65 @@
+%datetime-base {
+    position: relative;
+    padding: $in-padding;
+    border: $in-border !important;
+    border-radius: $in-b-rad;
+}
+
+.hf-datetime-input,
+.hf-datetime-time-input {
+    @extend %datetime-base;
+
+    .vdatetime-input {
+        padding: 0;
+    }
+
+    .vdatetime-popup__header {
+        background-color: $hf-teal;
+    }
+
+    .vdatetime-calendar__month__day--selected > span > span, .vdatetime-calendar__month__day--selected:hover > span > span {
+        background-color: $hf-teal;
+    }
+
+    .vdatetime-popup__actions__button {
+        font-weight: 700 !important;
+
+        &.vdatetime-popup__actions__button--cancel {
+            color: $dark-grey !important;
+        }
+
+        &.vdatetime-popup__actions__button--confirm {
+            color: $hf-teal !important;
+        }
+    }
+
+    // Add postfixed icon to vue-datetime callendar
+    // Appears as there's no slot to manually
+    // add said icons
+    &:after {
+        position: absolute;
+        top: 11px;
+        right: 20px;
+        font-family: "Font Awesome 5 Pro";
+        font-weight: 300;
+        content: '\f073';
+    }
+}
+
+// Set for time inputs
+// Use cascade to change the icon
+.hf-datetime-time-input {
+
+    .vdatetime-time-picker__item--selected {
+        color: $hf-teal;
+    }
+
+    &:after {
+        position: absolute;
+        top: 11px;
+        right: 20px;
+        font-family: "Font Awesome 5 Pro";
+        font-weight: 300;
+        content: '\f017';
+    }
+}

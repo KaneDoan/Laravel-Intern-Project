@@ -53,6 +53,8 @@ Route::group(['middleware' => ['auth:api','is_admin']], function () {
 
 Route::group(['middleware' => ['auth:api']], function () {
 
+    Route::get('logout', [LoginController::class, 'logout']);
+
     //User can view and change their profile
     Route::get('profile', [UserController::class, 'index'])->name('profile.index');
     Route::post('profile', [UserController::class, 'store'])->name('profile.store');

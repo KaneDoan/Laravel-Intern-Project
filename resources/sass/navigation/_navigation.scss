@@ -1,0 +1,72 @@
+@import 'sidenav';
+
+.navbar {
+    border-bottom: 1px solid $border-2-grey;
+}
+
+// Override sidebar
+.c-sidebar {
+    flex: 0 0 $sidenav-width;
+    width: $sidenav-width;
+}
+
+.c-sidebar-minimizer {
+    display: none;
+}
+
+// Override sidebar
+@media (min-width: 992px) and (min-width: 992px) {
+    html:not([dir=rtl]) .c-sidebar.c-sidebar-lg-show:not(.c-sidebar-right).c-sidebar-fixed ~ .c-wrapper, html:not([dir=rtl]) .c-sidebar.c-sidebar-show:not(.c-sidebar-right).c-sidebar-fixed ~ .c-wrapper {
+        margin-left: $sidenav-width;
+    }
+}
+
+.c-sidebar-nav {
+    > p {
+        padding: 26px 23px;
+        padding-bottom: 0;
+    }
+}
+
+.c-sidebar-nav-item {
+    .c-sidebar-nav-link {
+        font-size: 14px !important;
+
+        i {
+            width: 20px;
+        }
+
+        &:hover {
+            .fal {
+                color: #fff !important;
+            }
+        }
+
+        &.c-active {
+            .fal {
+                color: #fff !important;
+            }
+        }
+    }
+}
+
+.v-tab {
+    font-weight: 700 !important;
+    color: $dark-grey !important;
+}
+
+.v-slide-group__content {
+    border-bottom: 1px solid $th-border;
+}
+
+.v-tabs-slider-wrapper {
+    height: 5px !important;
+}
+
+.v-tab.v-tab.active {
+    color: $hf-teal !important;
+}
+
+.v-tab:before, .v-tabs-slider {
+    background-color: $hf-teal !important;
+}

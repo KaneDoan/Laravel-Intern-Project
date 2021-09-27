@@ -69,6 +69,7 @@ class GymRepository extends BaseRepository
                 'name'              => $data['name'] ?? null,
                 'slug'              => $data['slug'] ?? null,
                 'pin'               => $data['pin'] ?? null,
+                'description'       => $data['description'] ?? null,
                 'no_of_displays'    => $data['no_of_displays'] ?? null,
             ]);
 

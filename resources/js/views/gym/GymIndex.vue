@@ -1,5 +1,5 @@
 <template>
-  <div class="mk-be-clientindex row">
+  <div class="mk-be-gym-index row">
     <div
       class="px-0 col-12 d-flex flex-column flex-md-row justify-content-start justify-content-md-between align-items-md-center align-items-start"
       style="margin-bottom: 14px;"
@@ -17,7 +17,7 @@
     <div class="container-fluid mb-4 px-0">
       <div class="row mx-0">
         <div class="col-12 px-0">
-          <div class="client-card hf-base-card bg-white ">
+          <div class="gym-card hf-base-card bg-white ">
             <paginated-table
               v-if="gyms.data"
               :tableData="tableData"
@@ -36,15 +36,16 @@
 import Gym from '../../models/Gym'
 
 export default {
+
     mounted() {
-        console.log('mounted')
+        console.log('mounted');
         this.getGyms();
-        console.log('done')
+        console.log('done');
     },
     data(){
         return {
             export: false,
-            gyms: null,
+            gyms: {},
             tableData: {
                 columns: [
                     {
@@ -61,12 +62,13 @@ export default {
                         label: "Description",
                         name: "description",
                         sortable: true
-                    },
-                    edit: true,
-                    showSearch: true,
-                    showPerPage: false,
-                    viewUrl: "/gyms"
+                    }
                 ],
+
+                edit: false,
+                showSearch: true,
+                showPerPage: true,
+                viewUrl: "/gyms",
             }
         };
     },
@@ -80,7 +82,7 @@ export default {
       desc = false
     ) {
         console.log('getGyms')
-      let gyms = Gym.page(page).include('id', 'name', 'description').limit(per_page);
+      let gyms = Gym.page(page).include('users', 'usersCount').limit(per_page);
 
       if (sortColumn) {
         gyms.orderBy(
@@ -101,13 +103,14 @@ export default {
         this.export = false;
         window.open(
           "/gyms" + gyms._builder.query(),
-          "_blank"
+        //   "_blank"
         );
       }
 
       this.gyms = await gyms.get();
-    //   console.log(gyms.data);
+    console.log(gyms.data);
+    console.log("test");
     }
   }
 };
- </script
+ </script>

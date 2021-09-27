@@ -21,7 +21,7 @@
 
             <div class="input-group-append">
               <button @click="getResults(1)" class="secondary-btn ml-1 px-2" type="button">
-                <i class="fal fa-search text-border-2-grey"></i>
+                <i class="fas fa-search"></i>
               </button>
             </div>
           </div>

@@ -1,0 +1,78 @@
+// Just nuke it, if you're using a class you know
+// that you're overriding it. Create new classes
+// if needed
+%base-button {
+    padding: 8px 13px !important;
+    font-weight: 700 !important;
+    font-family: $body-font !important;
+    border-radius: 5px !important;
+    box-shadow: none !important;
+    transition: $all-3;
+}
+
+.btn-text {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.btn-success,
+.btn-primary {
+    @extend %base-button;
+    color: #fff !important;
+    background-color: $hf-teal !important;
+    border-color: $hf-teal !important;
+
+    &:hover,
+    &:focus {
+        background-color: $hf-teal-hover !important;
+        border-color: $hf-teal-hover !important;
+    }
+}
+
+.btn-danger {
+    @extend %base-button;
+    color: #fff !important;
+    background-color: $hf-red !important;
+}
+
+.hf-btn-secondary {
+    @extend %base-button;
+    color: $hf-teal !important;
+    background-color: $bg-grey !important;
+
+    transition: $all-3;
+
+    &:hover,
+    &:focus {
+        background-color: $table-hover !important;
+    }
+}
+
+// See ServiceIndex
+.toggle-view-btn-wrap {
+    display: flex;
+    align-items: center;
+    border: 1px solid $hf-teal;
+    border-radius: 5px;
+    transition: $all-3;
+
+    > div {
+        cursor: pointer;
+        padding: 8px 13px;
+
+        i {
+            opacity: 1;
+            margin-left: 0;
+            color: $hf-teal;
+        }
+    }
+
+    .active-view {
+        background-color: $hf-teal;
+        transition: $all-3;
+
+        i {
+            color: #fff;
+        }
+    }
+}

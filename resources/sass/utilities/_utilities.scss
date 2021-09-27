@@ -1,0 +1,16 @@
+@import 'backgrounds';
+
+.hf-h-100 {
+    .login-screen {
+        min-height: calc(100vh - #{$nav-height});
+
+        > .row {
+            margin-top: 40px;
+        }
+    }
+}
+
+.has-interaction,
+.can-interact {
+    cursor: pointer;
+}

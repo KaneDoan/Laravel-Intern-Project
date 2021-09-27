@@ -4,7 +4,6 @@ import Vue from "vue";
 import axios from 'axios';
 
 require('./bootstrap');
-require('./plugins');
 
 window.Vue = require('vue').default;
 window.$ = window.jQuery = require('jquery');

@@ -1,0 +1,92 @@
+// Set base background for inputs 
+.v-text-field--outlined>.v-input__control>.v-input__slot {
+    background-color: $in-bg-color;
+}
+
+// strip interfering vuetify styles
+// This messes with textareas
+.v-input__slot {
+    margin-bottom: 3px !important;
+    height: 45px !important;
+    min-height: 45px !important;
+}
+
+.v-textarea,
+.textarea-wrap {
+    .v-input__slot {
+        height: unset !important;
+        min-height: unset !important;
+    }
+}
+
+// Move down arrows
+.v-text-field--enclosed .v-input__append-inner,
+.v-text-field--enclosed .v-input__append-outer,
+.v-text-field--enclosed .v-input__prepend-inner,
+.v-text-field--enclosed .v-input__prepend-outer,
+.v-text-field--full-width .v-input__append-inner,
+.v-text-field--full-width .v-input__append-outer,
+.v-text-field--full-width .v-input__prepend-inner,
+.v-text-field--full-width .v-input__prepend-outer {
+    margin-top: 11px !important;
+}
+
+
+// Force style of vuetify icon
+// append-icon="fal fa-chevron-down"
+.v-select {
+    .v-icon {
+        font-size: 18px !important;
+        color: $dark-grey !important;
+    }
+}
+
+.hf-autocomplete {
+    .v-input__slot {
+        border: $in-border;
+        box-shadow: none !important;
+        // Issue where autocomplete in modal arrow
+        // is pushed down too far
+        .v-input__append-inner {
+            margin-top: 0 !important;
+        }
+    }
+
+    .v-input__append-inner {
+        margin-top: 0 !important;
+    }
+
+    &.v-select.v-select--is-menu-active .v-input__icon--append .v-icon {
+        transform: none !important;
+    }
+}
+
+
+// Set base style for vuetify checkboxes
+.v-input--checkbox {
+    label {
+        margin-bottom: 0;
+        padding-left: 10px;
+        color: #000 !important;
+    }
+}
+
+
+// Force dialogs over the top of coreui sticky nav
+.v-overlay.v-overlay--active {
+    z-index: 2019 !important;
+}
+
+.v-dialog__content {
+    z-index: 2020 !important;
+}
+
+.v-window__container .v-card {
+    padding-bottom: 50px !important;
+}
+
+// Thanks for the opinion vuetify
+// .col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col-auto, .col-lg, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-auto, .col-md, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md-auto, .col-sm, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-auto {
+//     padding-top: 0 !important;
+//     padding-bottom: 0 !important;
+// }

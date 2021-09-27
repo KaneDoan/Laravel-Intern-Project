@@ -1,0 +1,105 @@
+.hf-paginated-table {
+    .table {
+        thead {
+            th {
+                color: $dark-grey;
+                font-family: $body-font;
+                font-size: 14px;
+                font-weight: 700;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                border-top: none;
+                border-bottom: 1px solid $th-border;
+            }
+
+            i {
+                color: $dark-grey !important;
+            }
+        }
+
+        tbody {
+            td {
+                border-top: none;
+                font-family: $body-font;
+            }
+
+            tr:nth-child(odd) {
+                td {
+                    background-color: $bg-grey;
+                }
+            }
+        }
+    }
+}
+
+.table {
+    tr {
+        td {
+            transition: $all-3;
+
+            button {
+                transition: $all-3;
+
+                &:hover {
+                    color: $hf-teal-hover !important;
+                }
+            }
+        }
+        &:hover {
+            td {
+                background-color: $table-hover !important;
+            }
+        }
+    }
+
+    .icon-btn {
+        i {
+            transition: $all-3;
+
+            &:hover {
+                color: $hf-teal;
+            }
+        }
+    }
+}
+
+.table-pagination-wrap {
+    display: flex;
+    align-items: center;
+
+    p {
+        font-size: 14px;
+        font-weight: 700;
+        color: $dark-grey;
+    }
+
+    .pagination {
+        margin-left: 5px;
+        margin-bottom: 0;
+
+        .page-item {
+            &.disabled {
+                cursor: not-allowed;
+            }
+
+            &:first-child,
+            &:last-child {
+                .page-link {
+                    border-radius: $in-b-rad !important;
+                }
+            }
+        }
+
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            transition: $all-3;
+
+            i {
+                margin-left: 0;
+            }
+        }
+    }
+}

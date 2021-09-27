@@ -1,0 +1,70 @@
+// .text-field {
+//     color: #000;
+//     font-size: $in-font-size;
+//     font-weight: $in-font-weight;
+//     border: $in-border;
+//     border-radius: 5px;
+// }
+
+input,
+textarea,
+select {
+    border-color: $input-border !important;
+    background-color: $in-bg-color;
+}
+
+.hf-table-search-input {
+    padding: 6px 15px;
+    font-size: $in-font-size;
+    font-family: $in-font-family;
+    background-color: $in-bg-color;
+    border: $in-border;
+    border-radius: $in-b-rad;
+}
+
+// Technically an override?
+.hf-file-input {
+    .v-input__icon {
+        height: unset;
+        width: unset;
+
+        .v-icon {
+            padding: 8px 13px !important;
+            color: $hf-teal !important;
+            font-size: 16px !important;
+            font-weight: 700 !important;
+            font-family: $body-font !important;
+            background-color: $bg-grey !important;
+            border-radius: 5px !important;
+            box-shadow: none !important;
+
+            &:after {
+                background-color: transparent !important;
+            }
+
+            &:active {
+                &:after {
+                    background-color: transparent !important;
+                }
+            }
+        }
+    }
+
+    .files {
+        display: flex;
+        align-items: center;
+        padding: 5px !important;
+        border-radius: 4px;
+        background-color: $border-2-grey !important;
+
+        span {
+            text-decoration: underline !important;
+        }
+    }
+    
+}
+
+.input-phone-prefix {
+    margin-right: 10px !important;
+    max-width: 75px !important;
+}

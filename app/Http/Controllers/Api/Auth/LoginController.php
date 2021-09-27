@@ -30,4 +30,12 @@ class LoginController extends Controller
         return response ([ 'user' => Auth::user(), 'access_token' => $accessToken ], 200 );
 
     }
+
+    public function logout(Request $request)
+    {
+        $request->user()->token()->revoke();
+        return redirect('login') ->response()->json([
+            'message' => 'successful-logout'
+        ]);
+    }
 }
