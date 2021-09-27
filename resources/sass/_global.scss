@@ -1,0 +1,29 @@
+#breadcrumbs {
+    background-color: #e9ecef;
+}
+
+.alert.header-message {
+    border-radius: 0 !important;
+}
+
+.swal2-container {
+    z-index: 5000 !important;
+}
+
+// Coreui
+@import '~@coreui/coreui/scss/coreui';
+@import '~@coreui/icons/css/free.min.css';
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+// @import '~@fortawesome/fontawesome-free/scss/fontawesome';
+// @import '~@fortawesome/fontawesome-free/scss/regular';
+// @import '~@fortawesome/fontawesome-free/scss/solid';
+// @import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+
+// FA5 Pro
+// @import '~@fortawesome/fontawesome-pro/scss/light';
+// @import '~@fortawesome/fontawesome-pro/scss/solid';
+// @import '~@fortawesome/fontawesome-pro/scss/regular';
+// @import '~@fortawesome/fontawesome-pro/css/all.css';

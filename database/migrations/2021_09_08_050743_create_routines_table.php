@@ -17,6 +17,8 @@ class CreateRoutinesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->string('code')->nullable();
+            $table->string('description')->nullable();
             $table->integer('default_set')->default('0');
             $table->integer('timer')->default('0');
             $table->integer('rest_timer')->default('0');

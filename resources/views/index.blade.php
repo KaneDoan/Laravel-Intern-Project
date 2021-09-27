@@ -16,10 +16,13 @@
                     @endauth
                 </div>
             @endif
+<<<<<<< HEAD
+        <h1>Welcome to StepzTV</h1>
+        <app></app>
+=======
 
         <welcome></welcome>
 
+>>>>>>> master
         </div>
-    </body>
-</html>
 @endsection
