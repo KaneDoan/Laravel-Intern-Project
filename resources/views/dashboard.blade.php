@@ -2,19 +2,25 @@
 
 @section('content')
 
-<div class="container">
-
+<div class="container-fluid px-5">
     <div class="row">
+        <div class="col-md-2">
+           @include('backend.includes.sidebar')
+        </div>
+
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">
-                    <h1>Welcome {{Auth::user()->full_name}}</h1>
-                </div>
+                <div class="card-header">{{ __('Welcome to the Dashboard, ') }} {{  Auth::user()->full_name }}</div>
 
                 <div class="card-body">
-                    <h2>Welcome to the Dashboard</h2>
-                </div>
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
+                    {{ __('You are logged in!') }}
+                </div>
             </div>
         </div>
     </div>
