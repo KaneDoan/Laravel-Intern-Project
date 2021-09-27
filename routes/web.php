@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\GymController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\ExerciseController;
@@ -31,13 +32,10 @@ Route::get('dashboard', [DashboardController::class, 'index'])
 
 require __DIR__.'/auth.php';
 
-
+Auth::routes();
 Route::resource('/gyms', GymController::class);
 Route::resource('/exercises', ExerciseController::class);
 Route::resource('/routines', RoutineController::class);
 Route::resource('/users', UserController::class);
-
-
-Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

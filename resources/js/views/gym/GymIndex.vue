@@ -33,8 +33,7 @@
 
 
 <script>
-import Gym from "../../models/Gym";
-
+import Gym from '../../models/Gym'
 
 export default {
     mounted() {
@@ -46,29 +45,29 @@ export default {
         return {
             export: false,
             gyms: null,
-            // tableData: {
-            //     columns: [
-            //         {
-            //             label: "ID",
-            //             name: "id",
-            //             sortable: true
-            //         },
-            //         {
-            //             label: "Title",
-            //             name: "name",
-            //             sortable: true
-            //         },
-            //         {
-            //             label: "Description",
-            //             name: "description",
-            //             sortable: true
-            //         },
-            //         edit: true,
-            //         showSearch: true,
-            //         showPerPage: false,
-            //         viewUrl: "/gyms"
-            //     ],
-            // }
+            tableData: {
+                columns: [
+                    {
+                        label: "ID",
+                        name: "id",
+                        sortable: true
+                    },
+                    {
+                        label: "Title",
+                        name: "name",
+                        sortable: true
+                    },
+                    {
+                        label: "Description",
+                        name: "description",
+                        sortable: true
+                    },
+                    edit: true,
+                    showSearch: true,
+                    showPerPage: false,
+                    viewUrl: "/gyms"
+                ],
+            }
         };
     },
     methods: {
@@ -83,28 +82,28 @@ export default {
         console.log('getGyms')
       let gyms = Gym.page(page).include('id', 'name', 'description').limit(per_page);
 
-    //   if (sortColumn) {
-    //     gyms.orderBy(
-    //       (desc ? "-" : "") + (sortColumn.sort_name || sortColumn.name)
-    //     );
-    //   } else {
-    //     gyms.orderBy("-created_at");
-    //   }
+      if (sortColumn) {
+        gyms.orderBy(
+          (desc ? "-" : "") + (sortColumn.sort_name || sortColumn.name)
+        );
+      } else {
+        gyms.orderBy("-created_at");
+      }
 
-    //   if (query) {
-    //     gyms.where("search", query);
-    //   }
+      if (query) {
+        gyms.where("search", query);
+      }
 
-    //   if (this.export) {
-    //     gyms.params({
-    //       export: true,
-    //     });
-    //     this.export = false;
-    //     window.open(
-    //       "/gyms" + gyms._builder.query(),
-    //       "_blank"
-    //     );
-    //   }
+      if (this.export) {
+        gyms.params({
+          export: true,
+        });
+        this.export = false;
+        window.open(
+          "/gyms" + gyms._builder.query(),
+          "_blank"
+        );
+      }
 
       this.gyms = await gyms.get();
     //   console.log(gyms.data);
