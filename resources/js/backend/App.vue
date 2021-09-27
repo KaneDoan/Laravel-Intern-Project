@@ -1,13 +1,10 @@
 <template>
-<<<<<<< HEAD
-    <h1>Welcome to the dashboard</h1>
-=======
   <div>
     <div>
-        {{message}}
+        <h1>{{message}}</h1>
     </div>
   </div>
->>>>>>> master
+
 </template>
 
 <script>
@@ -16,21 +13,12 @@
 // import Footer from "./components/Footer.vue";
 
 export default {
-<<<<<<< HEAD
-	// components: {
-	// 	Header,
-	// 	Sidebar,
-	// 	Footer
-	// },
-    // created() {
-	// 	document.querySelector("body").style.backgroundColor = "#fff";
-	// }
-=======
+
   computed: {},
   data() {
     return {
+        message:"HELLLO"
     }
   }
->>>>>>> master
 };
 </script>
