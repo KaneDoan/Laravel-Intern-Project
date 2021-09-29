@@ -22,9 +22,18 @@
 <body>
     @include('layouts.navigation')
     <div id="app">
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    @include('backend.includes.sidebar')
+                </div>
+                <div class="col-md-8">
+                    <main class="py-4">
+                        @yield('content')
+                    </main>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

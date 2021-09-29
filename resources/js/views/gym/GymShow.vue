@@ -16,6 +16,7 @@
             ></gym-form>
         </div>
       </div>
+
       <!-- Create gym -->
       <div v-else class="container-fluid">
         <gym-form :init_gym="gym" ref="gymFormRef"></gym-form>
@@ -24,10 +25,19 @@
 
     <div class="col-12 mb-4">
     <button
+        v-if="gym.id"
         @click="handleSubmit()"
         class="mt-3 mt-sm-0 ml-0 ml-sm-2 btn-success"
     >
         <strong>Update Gym</strong>
+    </button>
+
+    <button
+        v-else
+        @click="handleSubmit()"
+        class="mt-3 mt-sm-0 ml-0 ml-sm-2 btn-success"
+    >
+        <strong>Create Gym</strong>
     </button>
 
     <button
@@ -48,7 +58,6 @@ export default {
   props: {
     initial_gym: {
       type: Object,
-      default: null,
     },
   },
   async mounted() {
@@ -83,7 +92,7 @@ export default {
         if (result.isConfirmed) {
           let gym = new Gym(this.initial_gym);
           gym.delete().then((response) => {
-            window.location.href = "/gyms/" + response.id;
+            window.location.href = "/gyms/";
           });
         }
       });

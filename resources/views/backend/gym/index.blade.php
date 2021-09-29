@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="mk-be-gym-index container-fluid">
+<div class="mk-be-gym-index">
   <gym-index></gym-index>
 </div>
 

@@ -51,7 +51,7 @@ class GymController extends Controller
      */
     public function create(ManageGymRequest $request)
     {
-        return view('backend.gym.create');
+        return view('backend.routine.create');
 
     }
 
@@ -94,9 +94,9 @@ class GymController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ManageGymRequest $request, Gym $gym)
     {
-        //
+        return view('backend.gym.edit')->with('gym', $gym);
     }
 
     /**

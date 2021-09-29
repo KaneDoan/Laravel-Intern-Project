@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Routine;
+use App\Http\Requests\Routine\ManageRoutineRequest;
+use App\Http\Requests\Routine\StoreRoutineRequest;
+use App\Http\Requests\Routine\UpdateRoutineRequest;
+
 use Illuminate\Http\Request;
 
 class RoutineController extends Controller
@@ -14,7 +19,7 @@ class RoutineController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.routine.index');
     }
 
     /**
@@ -24,7 +29,7 @@ class RoutineController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.routine.create');
     }
 
     /**
@@ -44,9 +49,9 @@ class RoutineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Routine $routine)
     {
-        //
+        return view('backend.routine.show')->with('routine', $routine);
     }
 
     /**
@@ -55,9 +60,9 @@ class RoutineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Routine $routine)
     {
-        //
+        return view('backend.routine.edit')->with('routine', $routine);;
     }
 
     /**

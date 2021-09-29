@@ -63,10 +63,11 @@ class RoutineController extends Controller
             if ($request->hasFile('thumbnail_path_url')){
                 $routine->addMediaFromRequest('thumbnail_path_url')->toMediaCollection('routine');
             }
-
         }
 
-        return response([ 'routine' => new RoutineResource($routine), 'message' => 'Routine created successfully'], 201);
+        //return response([ 'routine' => new RoutineResource($routine), 'message' => 'Routine created successfully'], 201);
+
+        return $routine;
     }
 
     /**
@@ -84,7 +85,8 @@ class RoutineController extends Controller
 	    ])
     	->first();
 
-        return response([ 'routine' => new RoutineResource($routine), 'message' => 'Routine retrieved successfully'], 200);
+        //return response([ 'routine' => new RoutineResource($routine), 'message' => 'Routine retrieved successfully'], 200);
+        return $routine;
     }
 
     /**
@@ -101,6 +103,9 @@ class RoutineController extends Controller
         if ($routine) {
             if ($request->hasFile('thumbnail_path_url')) {
                 $routine->addMediaFromRequest('thumbnail_path_url')->toMediaCollection('routine');
+            }
+            if ($request->hasFile('video_path_url')) {
+                $routine->addMediaFromRequest('video_path_url')->toMediaCollection('routine');
             }
         }
 

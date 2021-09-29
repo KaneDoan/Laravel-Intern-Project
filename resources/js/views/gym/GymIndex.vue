@@ -62,7 +62,12 @@ export default {
                         label: "Description",
                         name: "description",
                         sortable: true
-                    }
+                    },
+                    {
+                        label: "Action",
+                        name: "",
+                        sortable: true
+                    },
                 ],
 
                 edit: false,

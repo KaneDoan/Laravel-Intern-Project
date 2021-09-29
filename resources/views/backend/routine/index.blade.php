@@ -4,8 +4,8 @@
 
 @section('content')
 
-<div class="mk-be-gym-index container-fluid">
-  <gym-index></gym-index>
+<div class="mk-be-routine-index container-fluid">
+  <routine-index></routine-index>
 </div>
 
 @endsection

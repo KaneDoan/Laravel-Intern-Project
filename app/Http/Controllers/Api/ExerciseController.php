@@ -64,7 +64,8 @@ class ExerciseController extends Controller
 
 
 
-        return response([ 'exercise' => new ExerciseResource($exercise), 'message' => 'Exercise created successfully'], 201);
+        //return response([ 'exercise' => new ExerciseResource($exercise), 'message' => 'Exercise created successfully'], 201);
+        return $exercise;
     }
 
     /**
@@ -82,7 +83,8 @@ class ExerciseController extends Controller
         ])
         ->first();
 
-        return response([ 'exercise' => new ExerciseResource($exercise), 'message' => 'Exercise retrieved successfully'], 200);
+        //return response([ 'exercise' => new ExerciseResource($exercise), 'message' => 'Exercise retrieved successfully'], 200);
+        return $exercise;
     }
 
     /**
@@ -99,6 +101,9 @@ class ExerciseController extends Controller
         if ($exercise) {
             if ($request->hasFile('thumbnail_path_url')) {
                 $exercise->addMediaFromRequest('thumbnail_path_url')->toMediaCollection('exercise');
+            }
+            if ($request->hasFile('video_path_url')) {
+                $exercise->addMediaFromRequest('video_path_url')->toMediaCollection('exercise');
             }
         }
 

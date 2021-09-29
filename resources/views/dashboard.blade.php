@@ -3,12 +3,7 @@
 @section('content')
 
 <div class="container-fluid px-5">
-    <div class="row">
-        <div class="col-md-2">
-           @include('backend.includes.sidebar')
-        </div>
-
-        <div class="col-md-8">
+        <div >
             <div class="card">
                 <div class="card-header">{{ __('Welcome to the Dashboard, ') }} {{  Auth::user()->full_name }}</div>
 
@@ -23,7 +18,6 @@
                 </div>
             </div>
         </div>
-    </div>
 </div>
 
 @endsection

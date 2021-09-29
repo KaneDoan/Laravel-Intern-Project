@@ -69,15 +69,19 @@ class GymController extends Controller
 
         $gym = Gym::create($data);
 
+        $request->validate([
+            'imageFile.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:2048'
+        ]);
+
         if ($gym) {
             if ($request->hasFile('thumbnail_path_url')){
                 $gym->addMediaFromRequest('thumbnail_path_url')->toMediaCollection('gym');
             }
         }
 
-        return response([ 'gym'=> new GymResource($gym), 'message' => 'Gym created successfully'], 201);
+        //return response([ 'gym'=> new GymResource($gym), 'message' => 'Gym created successfully'], 201);
 
-        //return $gym;
+        return $gym;
     }
 
     /**
@@ -94,7 +98,8 @@ class GymController extends Controller
 	    		])
     			->first();
 
-        return response([ 'gym' => new GymResource($gym), 'message' => 'Gym retrieved successfully'], 200);
+        //return response([ 'gym' => new GymResource($gym), 'message' => 'Gym retrieved successfully'], 200);
+        return $gym;
     }
 
     /**

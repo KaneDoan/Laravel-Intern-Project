@@ -26,8 +26,8 @@ class UpdateExerciseRequest extends FormRequest
         return [
             'name' => 'required | max:255',
             'slug' => 'alpha_dash',
-            'video_path_url' => 'video | mimes:mp4,mov,ogg,flv | max:10240',
-            'thumbnail_path_url' => 'image | mimes:jpg,bmp,png,jpeg | max:10240',
+            'video' => 'video | mimes:mp4,mov,ogg,flv | max:10240',
+            'image' => 'image | mimes:jpg,bmp,png,jpeg | max:10240',
         ];
     }
 }
