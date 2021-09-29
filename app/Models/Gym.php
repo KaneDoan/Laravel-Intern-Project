@@ -6,12 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Gym extends Model
+class Gym extends Model implements HasMedia
 {
-    use HasFactory, HasSlug, SoftDeletes;
+    use HasFactory, HasSlug, SoftDeletes, InteractsWithMedia;
 
     protected $fillable = [
         'name',
@@ -36,6 +39,13 @@ class Gym extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'gym_users')->whereNull('gym_users.deleted_at');
+    }
+
+    public function getThumbnailPathurlAttribute(){
+
+        $media = collect($this->media)->last();
+        if (isset($media)) return $media->getUrl();
+        return null;
     }
 
     public function scopeSearch($query, $search = '')

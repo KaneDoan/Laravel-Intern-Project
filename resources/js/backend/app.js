@@ -2,10 +2,14 @@ import 'alpinejs';
 import { Model } from "vue-api-query";
 import Vue from "vue";
 import axios from 'axios';
+import VueSweetalert2 from 'vue-sweetalert2';
 
 
 window.Vue = Vue;
 window.$ = window.jQuery = require('jquery');
+window.Swal = require('sweetalert2');
+
+Vue.use(VueSweetalert2);
 
 
 require('../plugins');

@@ -97,14 +97,14 @@ class ExerciseController extends Controller
         $exercise->update($request->all());
 
         if ($exercise) {
-            if ($request->hasFile('file')) {
-
-                $exercise->addMediaFromRequest('file')->toMediaCollection('exercise');
-
+            if ($request->hasFile('thumbnail_path_url')) {
+                $exercise->addMediaFromRequest('thumbnail_path_url')->toMediaCollection('exercise');
             }
         }
 
-        return response([ 'exercise' => new ExerciseResource($exercise), 'message' => 'Exercise updated successfully'], 200);
+    	return $exercise->fresh();
+
+        //return response([ 'exercise' => new ExerciseResource($exercise), 'message' => 'Exercise updated successfully'], 200);
     }
 
     /**

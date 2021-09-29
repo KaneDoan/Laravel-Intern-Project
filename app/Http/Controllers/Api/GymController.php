@@ -31,6 +31,7 @@ class GymController extends Controller
                 AllowedFilter::scope('search'),
                 AllowedFilter::scope('search_by_name')
             ])
+            ->allowedAppends(['thumbnail_path_url'])
             ->allowedSorts([
                 'id',
                 'name',
@@ -68,7 +69,14 @@ class GymController extends Controller
 
         $gym = Gym::create($data);
 
-        return response([ 'gym' => new GymResource($gym), 'message' => 'Gym created successfully'], 201);
+        if ($gym) {
+            if ($request->hasFile('thumbnail_path_url')){
+                $gym->addMediaFromRequest('thumbnail_path_url')->toMediaCollection('gym');
+            }
+        }
+
+        return response([ 'gym'=> new GymResource($gym), 'message' => 'Gym created successfully'], 201);
+
         //return $gym;
     }
 
@@ -100,7 +108,15 @@ class GymController extends Controller
     {
         $gym->update($request->all());
 
-        return response([ 'gym' => new GymResource($gym), 'message' => 'Gym updated successfully'], 200);
+        if ($gym) {
+            if ($request->hasFile('thumbnail_path_url')) {
+                $gym->addMediaFromRequest('thumbnail_path_url')->toMediaCollection('gym');
+            }
+        }
+
+    	return $gym->fresh();
+
+        //return response([ 'gym' => new GymResource($gym), 'message' => 'Gym updated successfully'], 200);
     }
 
     /**

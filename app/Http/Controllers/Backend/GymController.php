@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Gym\StoreGymRequest;
 use App\Http\Requests\Gym\UpdateGymRequest;
 use App\Http\Requests\Gym\ManageGymRequest;
-// use App\Repositories\Backend\GymRepository;
-
+use App\Repositories\Backend\GymRepository;
+use App\Events\Backend\Gym\GymCreated;
+use App\Events\Backend\Gym\GymDeleted;
+use App\Events\Backend\Gym\GymUpdated;
 use App\Models\Gym;
 
 class GymController extends Controller
@@ -18,17 +20,17 @@ class GymController extends Controller
     /**
      * @var GymRepository
      */
-    // protected $gymRepository;
+    protected $gymRepository;
 
     /**
      * ClientController constructor.
      *
      * @param GymRepository $clientRepository
      */
-    // public function __construct(GymRepository $gymRepository)
-    // {
-    //     $this->gymRepository = $gymRepository;
-    // }
+    public function __construct(GymRepository $gymRepository)
+    {
+        $this->gymRepository = $gymRepository;
+    }
 
 
     /**
@@ -39,7 +41,7 @@ class GymController extends Controller
     public function index(ManageGymRequest $request)
     {
         return view('backend.gym.index');
-        // ->withgyms($this->gymRepository->getActivePaginated(25, 'id', 'asc'));
+        //->withgyms($this->gymRepository->getActivePaginated(25, 'id', 'asc'));
     }
 
     /**
@@ -49,7 +51,8 @@ class GymController extends Controller
      */
     public function create(ManageGymRequest $request)
     {
-        //
+        return view('backend.gym.create');
+
     }
 
     /**
@@ -60,7 +63,17 @@ class GymController extends Controller
      */
     public function store(StoreGymRequest $request)
     {
-        //
+        $this->gymRepository->create($request->only(
+            'name',
+            'pin',
+            'no_of_displays',
+            'description',
+        ));
+
+        event(new GymCreated($request));
+
+        return redirect()->route('gyms.index')
+            ->withFlashSuccess(__('gym.alerts.created'));
     }
 
     /**
@@ -71,7 +84,8 @@ class GymController extends Controller
      */
     public function show(ManageGymRequest $request, Gym $gym)
     {
-        //
+        return view('backend.gym.show')->with('gym', $gym);
+        //return view('backend.provider.show')->withGym($gym);
     }
 
     /**
@@ -94,7 +108,19 @@ class GymController extends Controller
      */
     public function update(UpdateGymRequest $request, Gym $gym)
     {
-        //
+        $this->gymRepository->update($gym, $request->only(
+            'name',
+            'pin',
+            'no_of_displays',
+            'description',
+        ));
+
+        // Fire update event (GymUpdated)
+        event(new GymUpdated($request));
+
+        return redirect()->route('gyms.index')
+            ->withFlashSuccess(__('this_test.alerts.updated'));
+
     }
 
     /**
@@ -105,6 +131,12 @@ class GymController extends Controller
      */
     public function destroy(UpdateGymRequest $request, Gym $gym)
     {
-        //
+        $this->gymRepository->deleteById($gym->id);
+
+        // Fire delete event (ProviderDeleted)
+        event(new GymDeleted($request));
+
+        return redirect()->route('gyms.destroy')
+            ->withFlashSuccess(__('gym.alerts.deleted'));
     }
 }

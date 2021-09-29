@@ -2,11 +2,19 @@ import 'alpinejs';
 import { Model } from "vue-api-query";
 import Vue from "vue";
 import axios from 'axios';
+import Vuetify  from "vuetify";
+import VueSweetalert2 from 'vue-sweetalert2';
+
+// To add vuetify css file
+import 'vuetify/dist/vuetify.min.css'
 
 require('./bootstrap');
 
 window.Vue = require('vue').default;
 window.$ = window.jQuery = require('jquery');
+window.Swal = require('sweetalert2');
+
+Vue.use(VueSweetalert2);
 
 Model.$http = axios;
 Vue.prototype.moment = window.moment;
@@ -29,6 +37,10 @@ Vue.component(
 
 Vue.component("pagination", require("laravel-vue-pagination"));
 
+const vuetify = new Vuetify()
+Vue.use(Vuetify)
+
 const app = new Vue({
+    vuetify: vuetify,
     el: '#app',
 });

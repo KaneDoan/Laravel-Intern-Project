@@ -24,7 +24,14 @@ class UpdateGymRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+
+            'name' => 'required|max:255',
+            'slug' => 'alpha_dash',
+            'pin' => 'required',
+            'no_of_displays' => 'required',
+            'description' => 'max:5000',
+            'thumbnail_path_url' => 'image | mimes:jpg,bmp,png,jpeg | max:10240',
+
         ];
     }
 }

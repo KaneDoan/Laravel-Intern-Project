@@ -98,7 +98,15 @@ class RoutineController extends Controller
     {
         $routine->update($request->all());
 
-        return response([ 'routine' => new RoutineResource($routine), 'message' => 'Routine updated successfully'], 200);
+        if ($routine) {
+            if ($request->hasFile('thumbnail_path_url')) {
+                $routine->addMediaFromRequest('thumbnail_path_url')->toMediaCollection('routine');
+            }
+        }
+
+    	return $routine->fresh();
+
+        //return response([ 'routine' => new RoutineResource($routine), 'message' => 'Routine updated successfully'], 200);
     }
 
     /**

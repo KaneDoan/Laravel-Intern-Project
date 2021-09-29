@@ -25,7 +25,7 @@ class StoreRoutineRequest extends FormRequest
     {
         return [
             'name' => 'required | max:255',
-            'slug' => 'required | alpha_dash',
+            'slug' => 'alpha_dash',
             'pin' => 'required',
             'default_set' => 'required',
             'timer' => 'required',
