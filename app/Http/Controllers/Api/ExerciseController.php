@@ -52,11 +52,11 @@ class ExerciseController extends Controller
         $exercise = Exercise::create($data);
 
         if ($exercise) {
-            if ($request->hasFile('video_path_url')) {
-                $exercise->addMediaFromRequest('video_path_url')->toMediaCollection('exercise');
+            if ($request->hasFile('video')) {
+                $exercise->addMediaFromRequest('video')->toMediaCollection('exercise');
             }
-            if ($request->hasFile('thumbnail_path_url')){
-                $exercise->addMediaFromRequest('thumbnail_path_url')->toMediaCollection('exercise');
+            if ($request->hasFile('thumbnail')){
+                $exercise->addMediaFromRequest('thumbnail')->toMediaCollection('exercise');
             }
 
         }
@@ -100,11 +100,11 @@ class ExerciseController extends Controller
         $exercise->update($request->all());
 
         if ($exercise) {
-            if ($request->hasFile('thumbnail_path_url')) {
-                $exercise->addMediaFromRequest('thumbnail_path_url')->toMediaCollection('exercise');
+            if ($request->hasFile('video')) {
+                $exercise->addMediaFromRequest('video')->toMediaCollection('exercise');
             }
-            if ($request->hasFile('video_path_url')) {
-                $exercise->addMediaFromRequest('video_path_url')->toMediaCollection('exercise');
+            if ($request->hasFile('thumbnail')) {
+                $exercise->addMediaFromRequest('thumbnail')->toMediaCollection('exercise');
             }
         }
 

@@ -45,9 +45,11 @@
           <v-col cols="11" sm="6">
             <div
                 v-cloak
-                style="height: 300px"
+                style="height: 500px; display: flex;"
                 class="text-center bg-light"
             >
+                <img v-if="gym.thumbnail_path_url" :src="gym.thumbnail_path_url" style="max-width: 100%; max-height: 400px" />
+
                 <v-file-input
                     v-model="media"
                     type="file"
@@ -115,7 +117,7 @@
 
     <button
         v-if="gym.id"
-        @click="addMedia(); handleSubmit()"
+        @click="handleSubmit()"
         class="mt-3 mt-sm-0 ml-0 ml-sm-2 btn-success"
     >
         <strong>Update Gym</strong>
@@ -145,7 +147,6 @@
 <script>
 import Gym from "../../models/Gym";
 import Media from "../../models/Media";
-import axios from "axios";
 
 export default {
   props: {
@@ -159,7 +160,8 @@ export default {
     return {
       gym: new Gym(this.initial_gym),
       media: null,
-      medias: {},
+      medias: [],
+      url: null,
     };
   },
   computed: {
@@ -172,29 +174,16 @@ export default {
   },
   async mounted() {
     this.getGym();
-    //this.getMedias();
-    console.log(this.media);
   },
 
   methods: {
-    selectImage(e) { this.media = e;
-        console.log( this.media);
+    selectImage(e) {
+      const file = e;
+      this.url = URL.createObjectURL(file);
     },
 
-    // async getMedias() {
-    //   let medias = this.gym.media();
-    //   this.medias = await medias.get();
-    // },
-
-    async addMedia() {
-      const media = new Media({
-        media: this.media,
-      }).for(this.gym);
-
-      await media.save().then((response) => {
-        //this.getMedias(1);
-        this.media = null;
-      });
+    getThumbNail(){
+        return this.gym.thumbnail_path_url;
     },
 
     async getGym() {
@@ -204,22 +193,24 @@ export default {
          "thumbnail_path_url",
         ])
         .find(this.initial_gym.id);
+        console.log(this.gym.thumbnail_path_url);
       }
     },
+
+    async getMedias() {
+      let medias = this.gym.media();
+      this.medias = await medias.get();
+      console.log(this.medias);
+    },
+
     async handleSubmit() {
 
-    const model = await Gym.find(this.initial_gym.id)
-
-    model.thumbnail = this.media
-
-    model.patch()
-
-        // if(this.initial_gym){
-        //     if (this.media){
-        //     this.gym.thumbnail = this.selectedImage;
-        //     this.gym._method = 'put';
-        //     }
-        // }
+        if(this.initial_gym){
+            if (this.media){
+            this.gym.thumbnail = this.media;
+            this.gym._method = 'put';
+            }
+        }
 
       this.gym.save().then((response) => {
         if (response.id) {
@@ -230,7 +221,8 @@ export default {
       });
     },
 
-    handleDelete() {
+
+    async handleDelete() {
       this.$swal({
         title: "Are you sure you want to delete this?",
         customClass: {

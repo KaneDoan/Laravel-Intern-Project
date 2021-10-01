@@ -5,7 +5,7 @@
       <div class="col-12 hf-base-card hf-service-card-padding admin-input-wrap">
         <v-row>
           <v-col cols="12">
-            <h2 v-if="user.id" class="mb-4 color-primary">{{ user.name }}</h2>
+            <h2 v-if="user.id" class="mb-4 color-primary">{{ user.full_name }}</h2>
           </v-col>
         </v-row>
 
@@ -16,7 +16,7 @@
           <v-col cols="12" md="6">
             <v-text-field
               outlined
-              v-model="user.name"
+              v-model="user.full_name"
               placeholder=""
               class="text-field"
             ></v-text-field>
@@ -47,6 +47,7 @@
               v-model="user.password"
               placeholder=""
               class="text-field"
+              type="password"
             ></v-text-field>
           </v-col>
         </v-row>

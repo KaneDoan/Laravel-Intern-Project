@@ -28,12 +28,9 @@
             <label>Slug</label>
           </v-col>
           <v-col cols="12" md="6">
-            <v-text-field
-              outlined
-              v-model="routine.slug"
-              placeholder=""
-              class="text-field"
-            ></v-text-field>
+            <p>
+              {{exercise.slug}}
+            </p>
           </v-col>
         </v-row>
 

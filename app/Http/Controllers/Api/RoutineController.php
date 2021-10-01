@@ -57,11 +57,11 @@ class RoutineController extends Controller
         $routine = Routine::create($data);
 
         if ($routine) {
-            if ($request->hasFile('video_path_url')) {
-                $routine->addMediaFromRequest('video_path_url')->toMediaCollection('routine');
+            if ($request->hasFile('video')) {
+                $routine->addMediaFromRequest('video')->toMediaCollection('routine');
             }
-            if ($request->hasFile('thumbnail_path_url')){
-                $routine->addMediaFromRequest('thumbnail_path_url')->toMediaCollection('routine');
+            if ($request->hasFile('thumbnail')){
+                $routine->addMediaFromRequest('thumbnail')->toMediaCollection('routine');
             }
         }
 
@@ -101,11 +101,11 @@ class RoutineController extends Controller
         $routine->update($request->all());
 
         if ($routine) {
-            if ($request->hasFile('thumbnail_path_url')) {
-                $routine->addMediaFromRequest('thumbnail_path_url')->toMediaCollection('routine');
+            if ($request->hasFile('video')) {
+                $routine->addMediaFromRequest('video')->toMediaCollection('routine');
             }
-            if ($request->hasFile('video_path_url')) {
-                $routine->addMediaFromRequest('video_path_url')->toMediaCollection('routine');
+            if ($request->hasFile('thumbnail')) {
+                $routine->addMediaFromRequest('thumbnail')->toMediaCollection('routine');
             }
         }
 

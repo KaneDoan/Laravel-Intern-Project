@@ -30,7 +30,7 @@ class UpdateGymRequest extends FormRequest
             'pin' => 'required',
             'no_of_displays' => 'required',
             'description' => 'max:5000',
-            //'thumbnail' => ['file'],
+            'thumbnail' => 'image | max:2048',
         ];
     }
 }

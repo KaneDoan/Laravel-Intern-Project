@@ -1,6 +1,4 @@
 @if(Auth::check())
-<div class="navbar-default sidebar" role="navigation">
-    <div class="sidebar-nav navbar-collapse">
         <ul class="sidebar navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="#">
@@ -42,6 +40,4 @@
                 </a>
             </li>
         </ul>
-    </div>
-</div>
 @endif

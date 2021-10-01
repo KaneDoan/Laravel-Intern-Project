@@ -96,6 +96,7 @@ class GymController extends Controller
     			->allowedIncludes([
 	    			'users',
 	    		])
+                ->allowedAppends(['thumbnail_path_url'])
     			->first();
 
         //return response([ 'gym' => new GymResource($gym), 'message' => 'Gym retrieved successfully'], 200);
@@ -117,7 +118,6 @@ class GymController extends Controller
 
         if ($gym) {
             if ($request->hasFile('thumbnail')) {
-
                 info('gymcontroller@thumbnail');
                 $gym->addMediaFromRequest('thumbnail')->toMediaCollection('gym');
             }

@@ -35,30 +35,58 @@
         </v-row>
 
         <v-row>
-          <v-col cols="12" md="3">
-            <label>Image</label>
+          <v-col cols="12" sm="3">
+            <label>Add Image</label>
           </v-col>
-          <v-col cols="12" md="6">
-            <v-text-field
-              outlined
-              v-model="exercise.code"
-              placeholder=""
-              class="text-field"
-            ></v-text-field>
+
+          <v-col cols="11" sm="6">
+            <div
+                v-cloak
+                style="height: 500px"
+                class="text-center bg-light"
+            >
+                <img v-if="imageUrl" :src="imageUrl" style="max-width: 100%; max-height: 400px" />
+
+                <v-file-input
+                    v-model="media"
+                    type="file"
+                    label="Attachments"
+                    dence
+                    @change="selectImage"
+                    accept="image/png, image/jpeg, image/bmp, image/jpg"
+                    placeholder="Pick an image"
+                    append-icon="fas fa-camera"
+                ></v-file-input>
+
+            </div>
           </v-col>
         </v-row>
 
         <v-row>
-          <v-col cols="12" md="3">
-            <label>Video</label>
+          <v-col cols="12" sm="3">
+            <label>Add Video</label>
           </v-col>
-          <v-col cols="12" md="6">
-            <v-text-field
-              outlined
-              v-model="exercise.default_set"
-              placeholder=""
-              class="text-field"
-            ></v-text-field>
+
+          <v-col cols="11" sm="6">
+            <div
+                v-cloak
+                style="height: 500px"
+                class="text-center bg-light"
+            >
+                <img v-if="videoUrl" :src="videoUrl" style="max-width: 100%; max-height: 400px" />
+
+                <v-file-input
+                    v-model="media"
+                    type="file"
+                    label="Attachments"
+                    dence
+                    @change="selectVideo"
+                    accept="video/mp4, video/mov, video/fly, video/ogg"
+                    placeholder="Pick a video"
+                    append-icon="fas fa-video"
+                ></v-file-input>
+
+            </div>
           </v-col>
         </v-row>
 
@@ -88,6 +116,10 @@ export default {
   props: {
     initial_exercise: {
       type: Object,
+      default: null,
+      media: null,
+      imageUrl: null,
+      videoUrl:null,
     },
   },
   async mounted() {

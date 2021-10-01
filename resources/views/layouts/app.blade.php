@@ -19,21 +19,29 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-    @include('layouts.navigation')
-    <div id="app">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2 col-lg-4 col-sm-12">
-                    @include('backend.includes.sidebar')
-                </div>
-                <div class="col-md-5 justify-content-center">
-                    <main class="py-4">
+<body class="mk-be-app c-app">
+
+    @include('backend.includes.sidebar')
+
+    <div class="c-wrapper c-fixed-components">
+        @include('layouts.navigation')
+
+        <div class="c-body" id="app" data-app>
+            <main class="c-main">
+                <div class="container-fluid">
+                    <div class="fade-in">
                         @yield('content')
-                    </main>
-                </div>
-            </div>
-        </div>
-    </div>
+                    </div><!--fade-in-->
+                </div><!--container-fluid-->
+            </main>
+        </div><!--c-body-->
+
+        @include('backend.includes.footer')
+    </div><!--c-wrapper-->
 </body>
+<script>
+    window.asset = function(url){
+        return "{{ asset('/') }}" + url;
+    }
+</script>
 </html>

@@ -225,7 +225,7 @@ html {
       display: block;
     }
     .sidebar.toggled {
-      overflow: visible;
+      overflow: hidden;
       width: 90px !important;
     }
     .sidebar.toggled .nav-item:last-child {
