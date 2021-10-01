@@ -51,7 +51,7 @@ class GymController extends Controller
      */
     public function create(ManageGymRequest $request)
     {
-        return view('backend.routine.create');
+        return view('backend.gym.create');
 
     }
 

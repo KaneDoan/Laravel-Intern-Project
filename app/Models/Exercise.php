@@ -52,6 +52,14 @@ class Exercise extends Model implements HasMedia
         return null;
     }
 
+    public function scopeSearch($query, $search = '')
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('name', 'like', '%'.$search.'%')
+                  ->orWhere('id', 'like', '%'.$search.'%');
+        });
+    }
+
     public function scopeSearchByName($query, $search = '')
     {
         return $query->where(function ($query) use ($search) {

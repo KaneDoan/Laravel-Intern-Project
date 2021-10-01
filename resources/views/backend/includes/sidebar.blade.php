@@ -36,7 +36,7 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('users.index')}}">
                     <i class="fas fa-user-lock"></i>
                     <span>User Manager</span>
                 </a>

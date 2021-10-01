@@ -27,6 +27,7 @@ class ExerciseController extends Controller
         return QueryBuilder::for(Exercise::class)
         ->allowedIncludes(['routines'])
         ->allowedFilters([
+            AllowedFilter::scope('search'),
             AllowedFilter::scope('search_by_name')
         ])
         ->allowedAppends(['video_path_url','thumbnail_path_url'])

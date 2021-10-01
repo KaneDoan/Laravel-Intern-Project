@@ -24,10 +24,10 @@
     <div id="app">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-2 col-lg-4 col-sm-12">
                     @include('backend.includes.sidebar')
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-5 justify-content-center">
                     <main class="py-4">
                         @yield('content')
                     </main>

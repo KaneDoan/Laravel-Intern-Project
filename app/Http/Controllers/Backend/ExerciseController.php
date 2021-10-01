@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Exercise;
 use Illuminate\Http\Request;
 
 class ExerciseController extends Controller
@@ -14,7 +15,7 @@ class ExerciseController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.exercise.index');
     }
 
     /**
@@ -24,7 +25,7 @@ class ExerciseController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.exercise.create');
     }
 
     /**
@@ -44,9 +45,9 @@ class ExerciseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Exercise $exercise)
     {
-        //
+        return view('backend.exercise.show') ->with('exercise', $exercise);
     }
 
     /**
@@ -55,9 +56,9 @@ class ExerciseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Exercise $exercise)
     {
-        //
+        return view('backend.exercise.edit') ->with('exercise', $exercise);
     }
 
     /**

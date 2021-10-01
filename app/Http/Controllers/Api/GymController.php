@@ -69,13 +69,13 @@ class GymController extends Controller
 
         $gym = Gym::create($data);
 
-        $request->validate([
-            'imageFile.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:2048'
-        ]);
+        // $request->validate([
+        //     'imageFile.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:2048'
+        // ]);
 
         if ($gym) {
-            if ($request->hasFile('thumbnail_path_url')){
-                $gym->addMediaFromRequest('thumbnail_path_url')->toMediaCollection('gym');
+            if ($request->hasFile('thumbnail')){
+                $gym->addMediaFromRequest('thumbnail')->toMediaCollection('gym');
             }
         }
 
@@ -111,11 +111,15 @@ class GymController extends Controller
      */
     public function update(UpdateGymRequest $request, Gym $gym)
     {
+        info('gymcontroller@update');
+        info(json_encode($request->all()));
         $gym->update($request->all());
 
         if ($gym) {
-            if ($request->hasFile('thumbnail_path_url')) {
-                $gym->addMediaFromRequest('thumbnail_path_url')->toMediaCollection('gym');
+            if ($request->hasFile('thumbnail')) {
+
+                info('gymcontroller@thumbnail');
+                $gym->addMediaFromRequest('thumbnail')->toMediaCollection('gym');
             }
         }
 

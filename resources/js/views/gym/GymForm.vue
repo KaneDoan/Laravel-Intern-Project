@@ -39,25 +39,28 @@
 
         <v-row>
           <v-col cols="12" sm="3">
-            <label>Image Path</label>
+            <label>Add Image</label>
           </v-col>
+
           <v-col cols="11" sm="6">
-            <v-file-input
-              v-model="image"
-              type="file" class="input"
-              outlined
-              @change="selectFile"
-              accept="image/png, image/jpeg, image/bmp, image/jpg"
-              placeholder="Pick an image"
-              append-icon="fas fa-camera"
-            ></v-file-input>
+            <div
+                v-cloak
+                style="height: 300px"
+                class="text-center bg-light"
+            >
+                <v-file-input
+                    v-model="media"
+                    type="file"
+                    label="Attachments"
+                    dence
+                    @change="selectImage"
+                    accept="image/png, image/jpeg, image/bmp, image/jpg"
+                    placeholder="Pick an image"
+                    append-icon="fas fa-camera"
+                ></v-file-input>
+
+            </div>
           </v-col>
-
-          <v-col>
-          <h4>Preview</h4>
-          <v-img :src="imageUrl" style="border: 1px dashed #ccc; max-height: 250px" />
-        </v-col>
-
         </v-row>
 
 
@@ -109,6 +112,16 @@
             <v-text-field outlined v-model="client.xero_contact_id" placeholder="" class="text-field"></v-text-field>
           </v-col>
         </v-row> -->
+
+    <button
+        v-if="gym.id"
+        @click="handleSubmit()"
+        class="mt-3 mt-sm-0 ml-0 ml-sm-2 btn-success"
+    >
+        <strong>Update Gym</strong>
+    </button>
+
+
       </div>
     </div>
   </div>
@@ -116,23 +129,23 @@
 
 <script>
 import Gym from "../../models/Gym";
+import Media from "../../models/Media";
 import axios from "axios";
 
 export default {
   props: {
     initial_gym: {
       type: Object,
+      default: null,
     },
   },
-  async mounted() {
-    this.getGym();
-    console.log(this.initial_gym);
-  },
+
   data() {
     return {
       gym: new Gym(this.initial_gym),
-      image: undefined,
-      imageUrl: ''
+      media: null,
+      selectedImage: null,
+      medias: {},
     };
   },
   computed: {
@@ -143,118 +156,44 @@ export default {
       return `/api/gyms`;
     },
   },
+  async mounted() {
+    this.getGym();
+    // this.getMedias();
+    console.log(this.media);
+  },
+
   methods: {
-    createImage(file) {
-    const reader = new FileReader();
 
-    reader.onload = e => {
-      this.imageUrl = e.target.result;
-    };
-    reader.readAsDataURL(file);
-    },
 
-    selectFile(file) {
-      console.log(file);
-      if (this.gym.id) {
-        this.gym.file_name = file.name;
-        console.log(file.name);
-      }
-      if (!file) {
-        return;
-    }
-        this.createImage(file);
-    },
-
-    checkValidation() {
-      if (this.file == null) {
-        if (!this.gym.id) {
-          Vue.swal("", "Please add a file", "error");
-          return;
-        }
-      }
-
-      if (this.gym.file_name && this.gym.file_name.length) {
-      } else {
-        Vue.swal("", "Please add a file name", "error");
-        return;
-      }
-      this.handleSubmit();
-    },
-
-    showDetail(data) {
-      if (data.thumbnail_path_url) {
-        window.open(data.thumbnail_path_url, "_blank");
-      } else {
-        console.log("does not exist");
-      }
+    selectImage(e) { this.selectedImage = e;
+        console.log( this.selectedImage);
     },
 
     async getGym() {
       if (this.initial_gym) {
         this.gym = await Gym
         .append([
-          "thumbnail_path_url",
+         "thumbnail_path_url",
         ])
         .find(this.initial_gym.id);
       }
     },
+
     async handleSubmit() {
 
-    var formData = new FormData();
+// const model = await Gym.find(this.initial_gym.id)
 
-    Object.entries(this.gym).forEach(([key, value]) => {
-        if (!(key == "file")) {
-          formData.append(key, value);
+// model.thumbnail = this.media
+
+// model.patch()
+
+        if(this.initial_gym){
+            if (this.media){
+            this.gym.thumbnail = this.selectedImage;
+            this.gym._method = 'patch';
+            }
         }
-      });
 
-        if (this.gym.id) {
-        var method = "put";
-      } else {
-        var method = "post";
-      }
-
-      if (this.gym.id) {
-        formData.append("_method", "put");
-      }
-
-      if (this.file) {
-        formData.append("file", this.file, this.file.name);
-      }
-
-      //formData.append("client_id", this.init_client.id);
-    await axios
-        .post(this.postUrl, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          Vue.swal({
-            title: " ",
-            text: "Updated",
-            icon: "success",
-            toast: true,
-            position: "top-end",
-            timer: 2000,
-          });
-
-          this.getGym();
-        })
-        .catch(function (err) {
-          if (err.response.status == 422) {
-            var errorText = "";
-            Object.entries(err.response.data.errors).forEach(([key, value]) => {
-              value.forEach((errorMessage) => {
-                errorText += "" + errorMessage + " <br>";
-              });
-            });
-            Vue.swal("", errorText, "error");
-            return err.response;
-          } else {
-            Vue.swal("", "Server error", "error");
-          }
-        });
 
       this.gym.save().then((response) => {
         if (response.id) {
