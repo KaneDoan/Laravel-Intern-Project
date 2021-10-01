@@ -23,32 +23,6 @@
       </div>
     </div>
 
-    <div class="col-12 mb-4">
-    <button
-        v-if="gym.id"
-        @click="handleSubmit()"
-        class="mt-3 mt-sm-0 ml-0 ml-sm-2 btn-success"
-    >
-        <strong>Update Gym</strong>
-    </button>
-
-    <button
-        v-else
-        @click="handleSubmit()"
-        class="mt-3 mt-sm-0 ml-0 ml-sm-2 btn-success"
-    >
-        <strong>Create Gym</strong>
-    </button>
-
-    <button
-        v-if="gym.id"
-        @click="handleDelete()"
-        class="mt-3 mt-sm-0 ml-0 ml-sm-2 btn-danger"
-      >
-        <strong>Delete Gym</strong>
-    </button>
-    </div>
-
   </div>
 </template>
 
@@ -77,26 +51,6 @@ export default {
   computed: {},
 
   methods: {
-    handleDelete() {
-      this.$swal({
-        title: "Are you sure you want to delete this?",
-        customClass: {
-          confirmButton: "order-2 btn btn-danger ml-1",
-          cancelButton: "order-1 btn hf-btn-secondary mr-1",
-        },
-        buttonsStyling: false,
-        showCancelButton: true,
-        confirmButtonText: "Confirm",
-        iconHtml: "",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          let gym = new Gym(this.initial_gym);
-          gym.delete().then((response) => {
-            window.location.href = "/gyms/";
-          });
-        }
-      });
-    },
 
     handleSubmit() {
       this.$refs.gymFormRef.handleSubmit();

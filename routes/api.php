@@ -9,6 +9,9 @@ use App\Http\Controllers\Api\GymUserController;
 use App\Http\Controllers\Api\MediaController;
 use App\Http\Controllers\Api\RoutineController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\GymMediaController;
+use App\Http\Controllers\Api\RoutineMediaController;
+use App\Http\Controllers\Api\ExerciseMediaController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -43,7 +46,11 @@ Route::group(['middleware' => ['auth:api','is_admin']], function () {
     Route::apiResource('exercises', ExerciseController::class);
     Route::apiResource('exercise_routine', ExerciseRoutineController::class);
     Route::apiResource('gym_user', GymUserController::class);
-    Route::apiResource('media', MediaController::class);
+
+    //Media API calls
+    Route::apiResource('gyms/{gym}/media', GymMediaController::class);
+    Route::apiResource('routines/{routine}/media', RoutineMediaController::class);
+    Route::apiResource('exercises/{exercise}/media', ExerciseMediaController::class);
 
     //View users and their gyms profile
     // Route::get('/gym_user', [GymUserController::class, 'index'])->name('gym.user.index');

@@ -115,12 +115,27 @@
 
     <button
         v-if="gym.id"
-        @click="handleSubmit()"
+        @click="addMedia(); handleSubmit()"
         class="mt-3 mt-sm-0 ml-0 ml-sm-2 btn-success"
     >
         <strong>Update Gym</strong>
     </button>
 
+    <button
+        v-else
+        @click="handleSubmit()"
+        class="mt-3 mt-sm-0 ml-0 ml-sm-2 btn-success"
+    >
+        <strong>Create Gym</strong>
+    </button>
+
+    <button
+        v-if="gym.id"
+        @click="handleDelete()"
+        class="mt-3 mt-sm-0 ml-0 ml-sm-2 btn-danger"
+      >
+        <strong>Delete Gym</strong>
+    </button>
 
       </div>
     </div>
@@ -144,7 +159,6 @@ export default {
     return {
       gym: new Gym(this.initial_gym),
       media: null,
-      selectedImage: null,
       medias: {},
     };
   },
@@ -158,15 +172,29 @@ export default {
   },
   async mounted() {
     this.getGym();
-    // this.getMedias();
+    //this.getMedias();
     console.log(this.media);
   },
 
   methods: {
+    selectImage(e) { this.media = e;
+        console.log( this.media);
+    },
 
+    // async getMedias() {
+    //   let medias = this.gym.media();
+    //   this.medias = await medias.get();
+    // },
 
-    selectImage(e) { this.selectedImage = e;
-        console.log( this.selectedImage);
+    async addMedia() {
+      const media = new Media({
+        media: this.media,
+      }).for(this.gym);
+
+      await media.save().then((response) => {
+        //this.getMedias(1);
+        this.media = null;
+      });
     },
 
     async getGym() {
@@ -178,28 +206,47 @@ export default {
         .find(this.initial_gym.id);
       }
     },
-
     async handleSubmit() {
 
-// const model = await Gym.find(this.initial_gym.id)
+    const model = await Gym.find(this.initial_gym.id)
 
-// model.thumbnail = this.media
+    model.thumbnail = this.media
 
-// model.patch()
+    model.patch()
 
-        if(this.initial_gym){
-            if (this.media){
-            this.gym.thumbnail = this.selectedImage;
-            this.gym._method = 'patch';
-            }
-        }
-
+        // if(this.initial_gym){
+        //     if (this.media){
+        //     this.gym.thumbnail = this.selectedImage;
+        //     this.gym._method = 'put';
+        //     }
+        // }
 
       this.gym.save().then((response) => {
         if (response.id) {
           if (!this.initial_gym) {
             window.location.href = "/gyms/" + response.id;
           }
+        }
+      });
+    },
+
+    handleDelete() {
+      this.$swal({
+        title: "Are you sure you want to delete this?",
+        customClass: {
+          confirmButton: "order-2 btn btn-danger ml-1",
+          cancelButton: "order-1 btn hf-btn-secondary mr-1",
+        },
+        buttonsStyling: false,
+        showCancelButton: true,
+        confirmButtonText: "Confirm",
+        iconHtml: "",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          let gym = new Gym(this.initial_gym);
+          gym.delete().then((response) => {
+            window.location.href = "/gyms/";
+          });
         }
       });
     },
