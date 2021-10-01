@@ -9,10 +9,19 @@ export default class Model extends BaseModel {
         return "/api";
     }
 
-    // implement a default request method
-    request(config) {
-        return this.$http.request(config);
+    async request(config) {
+        if (config.method == "PUT") {
+            config.method = "POST";
+            config.data._method = "PUT";
+        }
+
+        return await this.$http.request(config);
     }
+
+    formData() {
+        return { indices: true };
+    }
+
 
     // Overwrite save method to more easily deal with 422 errors
     async save() {
