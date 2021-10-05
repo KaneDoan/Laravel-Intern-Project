@@ -41,7 +41,12 @@ class Gym extends Model implements HasMedia
         return $this->belongsToMany(User::class, 'gym_users')->whereNull('gym_users.deleted_at');
     }
 
-    public function getThumbnailPathurlAttribute(){
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('gym');
+    }
+
+    public function getThumbnailPathUrlAttribute(){
 
         $media = collect($this->media)->last();
         if (isset($media)) return $media->getUrl();

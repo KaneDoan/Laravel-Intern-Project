@@ -17,11 +17,13 @@ class UserAuthController extends Controller
     {
 
         $validator = Validator::make($request->all(),
+
         [
             'full_name' => 'required|string|max:255',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string|confirmed'
         ]
+
         );
 
         if($validator->fails()){

@@ -45,14 +45,14 @@
                 style="height: 500px"
                 class="text-center bg-light"
             >
-                <img v-if="imageUrl" :src="imageUrl" style="max-width: 100%; max-height: 400px" />
+                <img v-if="exercise.thumbnail_path_url" :src="exercise.thumbnail_path_url" style="max-width: 100%; max-height: 400px" />
 
                 <v-file-input
                     v-model="media"
                     type="file"
                     label="Attachments"
                     dence
-                    @change="selectImage"
+                    @change="selectedImage"
                     accept="image/png, image/jpeg, image/bmp, image/jpg"
                     placeholder="Pick an image"
                     append-icon="fas fa-camera"
@@ -73,14 +73,14 @@
                 style="height: 500px"
                 class="text-center bg-light"
             >
-                <img v-if="videoUrl" :src="videoUrl" style="max-width: 100%; max-height: 400px" />
+                <video ref="videoRef" v-if="exercise.video_path_url" :src="exercise.video_path_url" style="max-width: 100%; max-height: 400px"/>
 
                 <v-file-input
                     v-model="media"
                     type="file"
                     label="Attachments"
                     dence
-                    @change="selectVideo"
+                    @change="selectedVideo"
                     accept="video/mp4, video/mov, video/fly, video/ogg"
                     placeholder="Pick a video"
                     append-icon="fas fa-video"
@@ -111,26 +111,23 @@
 
 <script>
 import Exercise from "../../models/Exercise";
+import Media from "../../models/Media";
 
 export default {
   props: {
     initial_exercise: {
       type: Object,
       default: null,
-      media: null,
-      imageUrl: null,
-      videoUrl:null,
     },
   },
-  async mounted() {
-    this.getExercise();
-    console.log(this.initial_exercise);
-  },
+
   data() {
     return {
       exercise: new Exercise(this.initial_exercise),
+      media: null,
     };
   },
+
   computed: {
     postUrl: function () {
     if (this.exercise.id) {
@@ -138,19 +135,52 @@ export default {
         }
       return `/api/exercises`;
     },
+
+    videoElement () {
+      return this.$refs.videoRef;
+    },
   },
+
+  async mounted() {
+    this.getExercise();
+  },
+
   methods: {
+
+    selectedImage(e) {
+      const file = e;
+      this.exercise.thumbnail_path_url = URL.createObjectURL(file);
+    },
+
+    selectedVideo(e) {
+      const file = e;
+      this.exercise.video_path_url = URL.createObjectURL(file);
+      console.log(this.exercise.video_path_url);
+    },
+
     async getExercise() {
       if (this.initial_exercise) {
-        this.exercise = await exercise
+        this.exercise = await Exercise
         .append([
           "thumbnail_path_url",
           "video_path_url"
         ])
         .find(this.initial_exercise.id);
+        console.log(this.exercise);
       }
     },
+
     async handleSubmit() {
+
+      if(this.initial_exercise){
+            if (this.media){
+            //this.exercise.thumbnail = this.media;
+            this.exercise.video = this.media;
+            console.log(this.media)
+            this.exercise._method = 'put';
+            }
+        }
+
       this.exercise.save().then((response) => {
         if (response.id) {
           if (!this.initial_exercise) {

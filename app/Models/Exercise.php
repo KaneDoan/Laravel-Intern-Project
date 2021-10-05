@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\File;
 
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 class Exercise extends Model implements HasMedia
 {
-    use HasFactory, HasSlug, SoftDeletes,InteractsWithMedia;
+    use HasFactory, HasSlug, SoftDeletes, InteractsWithMedia;
 
     protected $fillable = [
         'name',
@@ -39,15 +40,30 @@ class Exercise extends Model implements HasMedia
         return $this->belongsToMany(Routine::class, 'exercise_routines')->whereNull('exercise_routines.deleted_at');
     }
 
+    public function registerMediaCollections(): void
+    {
+        $this
+        ->addMediaCollection('exercise_thumbnail')
+        ->acceptsFile(function (File $file) {
+            return in_array($file->mimeType, ['image/jpeg', 'image/png', 'image/gif', 'image/tiff']);
+        });
+
+        $this
+        ->addMediaCollection('exercise_video')
+        ->acceptsFile(function (File $file) {
+            return in_array($file->mimeType, ['video/mp4', 'video/mpeg', 'video/ogg']);
+        });
+    }
+
     public function getVideoPathUrlAttribute(){
-        $media = collect($this->media)->first();
+        $media = collect($this->media->where('collection_name','exercise_video'))->last();
         if (isset($media)) return $media->getUrl();
         return null;
     }
 
-    public function getThumbnailPathurlAttribute(){
+    public function getThumbnailPathUrlAttribute(){
 
-        $media = collect($this->media)->last();
+        $media = collect($this->media->where('collection_name','exercise_thumbnail'))->last();
         if (isset($media)) return $media->getUrl();
         return null;
     }

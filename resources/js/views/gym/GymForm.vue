@@ -55,7 +55,7 @@
                     type="file"
                     label="Attachments"
                     dence
-                    @change="selectImage"
+                    @change="selectedImage"
                     accept="image/png, image/jpeg, image/bmp, image/jpg"
                     placeholder="Pick an image"
                     append-icon="fas fa-camera"
@@ -64,7 +64,6 @@
             </div>
           </v-col>
         </v-row>
-
 
         <v-row>
           <v-col cols="12" md="3">
@@ -160,10 +159,9 @@ export default {
     return {
       gym: new Gym(this.initial_gym),
       media: null,
-      medias: [],
-      url: null,
     };
   },
+
   computed: {
     postUrl: function () {
     if (this.gym.id) {
@@ -172,14 +170,16 @@ export default {
       return `/api/gyms`;
     },
   },
+
   async mounted() {
     this.getGym();
   },
 
   methods: {
-    selectImage(e) {
+
+    selectedImage(e) {
       const file = e;
-      this.url = URL.createObjectURL(file);
+      this.gym.thumbnail_path_url = URL.createObjectURL(file);
     },
 
     getThumbNail(){
@@ -193,14 +193,8 @@ export default {
          "thumbnail_path_url",
         ])
         .find(this.initial_gym.id);
-        console.log(this.gym.thumbnail_path_url);
+        console.log(this.gym);
       }
-    },
-
-    async getMedias() {
-      let medias = this.gym.media();
-      this.medias = await medias.get();
-      console.log(this.medias);
     },
 
     async handleSubmit() {

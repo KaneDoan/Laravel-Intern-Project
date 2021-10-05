@@ -11,6 +11,7 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Http\Requests\Gym\StoreGymRequest;
 use App\Http\Requests\Gym\UpdateGymRequest;

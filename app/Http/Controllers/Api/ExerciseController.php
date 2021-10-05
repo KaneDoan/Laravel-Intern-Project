@@ -30,7 +30,10 @@ class ExerciseController extends Controller
             AllowedFilter::scope('search'),
             AllowedFilter::scope('search_by_name')
         ])
-        ->allowedAppends(['video_path_url','thumbnail_path_url'])
+        ->allowedAppends([
+            'video_path_url',
+            'thumbnail_path_url'
+        ])
         ->allowedSorts([
             'id',
             'name',
@@ -53,17 +56,15 @@ class ExerciseController extends Controller
 
         if ($exercise) {
             if ($request->hasFile('video')) {
-                $exercise->addMediaFromRequest('video')->toMediaCollection('exercise');
+                $exercise->addMediaFromRequest('video')->toMediaCollection('exercise_video');
             }
             if ($request->hasFile('thumbnail')){
-                $exercise->addMediaFromRequest('thumbnail')->toMediaCollection('exercise');
+                $exercise->addMediaFromRequest('thumbnail')->toMediaCollection('exercise_thumbnail');
             }
 
         }
 
         //$exercise->addMedia(storage_path('media/beach.jpg'))->toMediaCollection('exercise');
-
-
 
         //return response([ 'exercise' => new ExerciseResource($exercise), 'message' => 'Exercise created successfully'], 201);
         return $exercise;
@@ -81,6 +82,10 @@ class ExerciseController extends Controller
 
         ->allowedIncludes([
             'routines',
+        ])
+        ->allowedAppends([
+            'video_path_url',
+            'thumbnail_path_url'
         ])
         ->first();
 
@@ -101,10 +106,10 @@ class ExerciseController extends Controller
 
         if ($exercise) {
             if ($request->hasFile('video')) {
-                $exercise->addMediaFromRequest('video')->toMediaCollection('exercise');
+                $exercise->addMediaFromRequest('video')->toMediaCollection('exercise_video');
             }
             if ($request->hasFile('thumbnail')) {
-                $exercise->addMediaFromRequest('thumbnail')->toMediaCollection('exercise');
+                $exercise->addMediaFromRequest('thumbnail')->toMediaCollection('exercise_thumbnail');
             }
         }
 
