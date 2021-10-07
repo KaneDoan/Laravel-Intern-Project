@@ -29,7 +29,7 @@
           </v-col>
           <v-col cols="12" md="6">
             <p>
-              {{exercise.slug}}
+              {{routine.slug}}
             </p>
           </v-col>
         </v-row>
@@ -104,6 +104,32 @@
           </v-col>
         </v-row>
 
+        <div class="col-12 mb-4">
+            <button
+                v-if="routine.id"
+                @click="handleSubmit()"
+                class="mt-3 mt-sm-0 ml-0 ml-sm-2 btn-success"
+            >
+                <strong>Update Routine</strong>
+            </button>
+
+            <button
+                v-else
+                @click="handleSubmit()"
+                class="mt-3 mt-sm-0 ml-0 ml-sm-2 btn-success"
+            >
+                <strong>Create Routine</strong>
+            </button>
+
+            <button
+                v-if="routine.id"
+                @click="handleDelete()"
+                class="mt-3 mt-sm-0 ml-0 ml-sm-2 btn-danger"
+            >
+                <strong>Delete Routine</strong>
+            </button>
+        </div>
+
       </div>
     </div>
   </div>
@@ -136,6 +162,7 @@ export default {
     },
   },
   methods: {
+
     async getRoutine() {
       if (this.initial_routine) {
         this.routine = await Routine
@@ -146,6 +173,7 @@ export default {
         .find(this.initial_routine.id);
       }
     },
+
     async handleSubmit() {
       this.routine.save().then((response) => {
         if (response.id) {
@@ -155,6 +183,28 @@ export default {
         }
       });
     },
+
+    async handleDelete() {
+      this.$swal({
+        title: "Are you sure you want to delete this?",
+        customClass: {
+          confirmButton: "order-2 btn btn-danger ml-1",
+          cancelButton: "order-1 btn hf-btn-secondary mr-1",
+        },
+        buttonsStyling: false,
+        showCancelButton: true,
+        confirmButtonText: "Confirm",
+        iconHtml: "",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          let routine = new Routine(this.initial_routine);
+          routine.delete().then((response) => {
+            window.location.href = "/routines/";
+          });
+        }
+      });
+    },
+
   },
 };
 </script>

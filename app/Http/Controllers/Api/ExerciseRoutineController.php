@@ -31,6 +31,13 @@ class ExerciseRoutineController extends Controller
             'routine',
         ])
 
+        ->allowedFilters([
+            AllowedFilter::scope('search'),
+            AllowedFilter::scope('search_by_name'),
+            AllowedFilter::scope('routine_id'),
+            AllowedFilter::scope('exercise_id'),
+        ])
+
         ->allowedSorts([
             'id',
             'sort_id',
@@ -57,13 +64,15 @@ class ExerciseRoutineController extends Controller
 
         $exerciseRoutine = ExerciseRoutine::create($data);
 
-        return response(
+        // return response(
 
-        [
-            'exercise_routine' => new ExerciseRoutineResource($exerciseRoutine),
-            'message' => 'Exercise routine created successfully'
+        // [
+        //     'exercise_routine' => new ExerciseRoutineResource($exerciseRoutine),
+        //     'message' => 'Exercise routine created successfully'
 
-        ], 201);
+        // ], 201);
+
+        return $exerciseRoutine;
     }
 
     /**
@@ -83,13 +92,7 @@ class ExerciseRoutineController extends Controller
         ])
         ->first();
 
-        return response(
-
-        [
-            'exercise_routine' => new ExerciseRoutineResource($exerciseRoutine),
-            'message' => 'Exercise routine retrieved successfully'
-
-        ], 200);
+        return $exerciseRoutine;
     }
 
     /**
@@ -103,12 +106,7 @@ class ExerciseRoutineController extends Controller
     {
         $exerciseRoutine->update($request->all());
 
-        return response(
-
-        [
-            'exercise_routine' => new ExerciseRoutineResource($exerciseRoutine),
-            'message' => 'Exercise routine updated successfully'
-        ], 200);
+        return $exerciseRoutine;
     }
 
     /**

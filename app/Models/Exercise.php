@@ -40,20 +40,20 @@ class Exercise extends Model implements HasMedia
         return $this->belongsToMany(Routine::class, 'exercise_routines')->whereNull('exercise_routines.deleted_at');
     }
 
-    public function registerMediaCollections(): void
-    {
-        $this
-        ->addMediaCollection('exercise_thumbnail')
-        ->acceptsFile(function (File $file) {
-            return in_array($file->mimeType, ['image/jpeg', 'image/png', 'image/gif', 'image/tiff']);
-        });
+    // public function registerMediaCollections(): void
+    // {
+    //     $this
+    //     ->addMediaCollection('exercise_thumbnail')
+    //     ->acceptsFile(function (File $file) {
+    //         return in_array($file->mimeType, ['image/jpeg', 'image/png', 'image/gif', 'image/tiff']);
+    //     });
 
-        $this
-        ->addMediaCollection('exercise_video')
-        ->acceptsFile(function (File $file) {
-            return in_array($file->mimeType, ['video/mp4', 'video/mpeg', 'video/ogg']);
-        });
-    }
+    //     $this
+    //     ->addMediaCollection('exercise_video')
+    //     ->acceptsFile(function (File $file) {
+    //         return in_array($file->mimeType, ['video/mp4', 'video/mpeg', 'video/ogg']);
+    //     });
+    // }
 
     public function getVideoPathUrlAttribute(){
         $media = collect($this->media->where('collection_name','exercise_video'))->last();
@@ -81,6 +81,13 @@ class Exercise extends Model implements HasMedia
         return $query->where(function ($query) use ($search) {
             $query->where('name', 'like', '%'.$search.'%');
         });
+    }
+
+    public function scopeRoutineId($query, $routineId)
+    {
+        $exerciseIds = collect(ExerciseRoutine::whereRoutineId($routineId)->get())->pluck('exercise_id')->values();
+        info($exerciseIds);
+        return $query->whereIn('id', $exerciseIds);
     }
 
 }

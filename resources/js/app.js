@@ -3,6 +3,7 @@ import { Model } from "vue-api-query";
 import Vue from "vue";
 import axios from 'axios';
 import Vuetify  from "vuetify";
+import moment from 'moment'
 import VueSweetalert2 from 'vue-sweetalert2';
 
 // To add vuetify css file

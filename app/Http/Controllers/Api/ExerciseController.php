@@ -28,7 +28,8 @@ class ExerciseController extends Controller
         ->allowedIncludes(['routines'])
         ->allowedFilters([
             AllowedFilter::scope('search'),
-            AllowedFilter::scope('search_by_name')
+            AllowedFilter::scope('search_by_name'),
+            AllowedFilter::scope('routine_id')
         ])
         ->allowedAppends([
             'video_path_url',

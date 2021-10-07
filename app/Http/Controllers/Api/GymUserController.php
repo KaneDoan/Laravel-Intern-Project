@@ -28,8 +28,8 @@ class GymUserController extends Controller
         $gymUser =  QueryBuilder::for(GymUser::class)
 
         ->allowedIncludes([
-            'gym',
-            'user',
+            'gyms',
+            'users',
         ])
 
         ->allowedSorts([
@@ -76,8 +76,8 @@ class GymUserController extends Controller
         $gymUser =  QueryBuilder::for(GymUser::whereId($gymUser->id))
 
         ->allowedIncludes([
-            'gym',
-            'user',
+            'gyms',
+            'users',
         ])
 
         ->first();

@@ -39,9 +39,4 @@
         @include('backend.includes.footer')
     </div><!--c-wrapper-->
 </body>
-<script>
-    window.asset = function(url){
-        return "{{ asset('/') }}" + url;
-    }
-</script>
 </html>

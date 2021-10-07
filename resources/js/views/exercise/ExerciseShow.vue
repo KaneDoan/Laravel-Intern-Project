@@ -21,34 +21,8 @@
       <div v-else class="container-fluid">
         <exercise-form :init_exercise="exercise" ref="exerciseFormRef"></exercise-form>
       </div>
+
     </div>
-
-    <div class="col-12 mb-4">
-    <button
-        v-if="exercise.id"
-        @click="handleSubmit()"
-        class="mt-3 mt-sm-0 ml-0 ml-sm-2 btn-success"
-    >
-        <strong>Update Exercise</strong>
-    </button>
-
-    <button
-        v-else
-        @click="handleSubmit()"
-        class="mt-3 mt-sm-0 ml-0 ml-sm-2 btn-success"
-    >
-        <strong>Create Exercise</strong>
-    </button>
-
-    <button
-        v-if="exercise.id"
-        @click="handleDelete()"
-        class="mt-3 mt-sm-0 ml-0 ml-sm-2 btn-danger"
-      >
-        <strong>Delete Exercise</strong>
-    </button>
-    </div>
-
   </div>
 </template>
 
@@ -96,10 +70,6 @@ export default {
           });
         }
       });
-    },
-
-    handleSubmit() {
-      this.$refs.exerciseFormRef.handleSubmit();
     },
   },
 };

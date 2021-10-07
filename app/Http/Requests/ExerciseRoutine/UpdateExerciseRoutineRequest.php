@@ -24,9 +24,9 @@ class UpdateExerciseRoutineRequest extends FormRequest
     public function rules()
     {
         return [
-            'sort_id' => 'required',
-            'display_id' => 'required',
-            'default_reps' => 'required',
+            // 'sort_id' => 'required',
+            // 'display_id' => 'required',
+            // 'default_reps' => 'required',
         ];
     }
 }
